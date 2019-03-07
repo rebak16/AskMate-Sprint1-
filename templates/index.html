@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AskMate(Sprint1)</title>
+</head>
+<body>
+    <h1>User Stories</h1>
+    <h2>Questions</h2>
+<table border="1">
+    <tr>
+        <th>Submission time</th>
+        <th>View number</th>
+        <th>Vote number</th>
+        <th>Title</th>
+    </tr>
+        {% for question in questions %}
+    <tr>
+        <td align='center'> {{ question.submission_time }}</td>
+        <td align='center'>{{ question.view_number }}</td>
+        <td align='center'>{{ question.vote_number }}</td>
+        <td align='center'><a href="questions/{{question.id}}">{{ question.title }}</a></td>
+    </tr>
+        {% endfor %}
+</table>
+    <br>
+<form action="/add-new-question">
+<button type="submit" align="right">Add new question</button>
+</form>
+</body>
+</html>
