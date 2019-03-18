@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ 'New' if is_edit else 'Edit'}} question</title>
+</head>
+<body>
+<h1>{{ 'New' if is_edit else 'Edit'}} question</h1>
+            <form action="/question/{{ question_id }}/edit" method="post">
+            <label for="title">{{ 'New' if is_edit else 'Edit'}} question:</label><br>
+            <textarea type="text" name="title" id="title" rows="8" cols="80">{{ title if title }}</textarea><br>
+            <label for="message">Message:</label><br>
+            <textarea type="text" name="message" id="message" rows="8" cols="80">{{ message if message }}</textarea><br><br>
+            <button type="submit" align="right">{{ 'Add' if is_edit else 'Edit'}} new question</button>
+            </form>
+</body>
+</html>

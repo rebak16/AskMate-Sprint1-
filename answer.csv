@@ -1,3 +1,5 @@
 id,submission_time,vote_number,question_id,message,image
-0,1493398154,4,0,"You need to use brackets: my_list = []",
-1,1493088154,35,0,"Look it up in the Python docs",
+0,2017-04-28 16:49:14,4,0,"You need to use brackets: my_list = []",
+1,2017-04-25 02:42:34,35,0,"Look it up in the Python docs",
+2,2019-03-14 23:11:52,0,3,,
+3,2019-03-17 22:42:52,0,3,,

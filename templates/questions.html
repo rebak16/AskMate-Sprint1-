@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <title>AskMate(Sprint1)</title>
 </head>
-    <body>
-        <h1>Question</h1>
-    <table border="1">
-        <tr>
-            <th>Submission time</th>
-            <th>View number</th>
-            <th>Vote number</th>
-            <th>Title</th>
-            <th>Message</th>
-            <th>Image</th>
-        </tr>
-            {% for data in quest_datas %}
+<body>
+<h1>Question</h1>
+<table border="1">
+    <tr>
+        <th>Submission time</th>
+        <th>View number</th>
+        <th>Vote number</th>
+        <th>Title</th>
+        <th>Message</th>
+        <th>Image</th>
+    </tr>
+    {% for data in quest_datas %}
         <tr>
             <td align='center'>{{ data.submission_time }}</td>
             <td align='center'>{{ data.view_number }}</td>
@@ -24,9 +24,14 @@
             <td align='center'>{{ data.message }}</td>
             <td align='center'>{{ data.image }}</td>
         </tr>
-            {% endfor %}
-    </table>
-    <h1>Answer</h1>
+    {% endfor %}
+</table>
+<br>
+  <form action="/question/{{ question_id }}/edit">
+	<button type="submit" align="right">Edit question</button>
+  </form>
+<h1>Answer</h1>
+{% if answ_datas %}
     <table border="1">
         <tr>
             <th>Submission time</th>
@@ -34,20 +39,27 @@
             <th>Message</th>
             <th>Image</th>
         </tr>
-            {% for data in answ_datas %}
-        <tr>
-            <td align='center'>{{ data.submission_time }}</td>
-            <td align='center'>{{ data.vote_number }}</td>
-            <td align='center'>{{ data.message }}</td>
-            <td align='center'>{{ data.image }}</td>
-        </tr>
-            {% endfor %}
-         <form action="/question/{{question_id}}/new-answer">
+
+        {% for data in answ_datas %}
+            <tr>
+
+                <td align='center'>{{ data.submission_time }}</td>
+                <td align='center'>{{ data.vote_number }}</td>
+                <td align='center'>{{ data.message }}</td>
+                <td align='center'>{{ data.image }}</td>
+            </tr>
+        {% endfor %}
     </table>
-        <br>
-
-    <button type="submit" align="right">Add new answer</button>
-    </form>
-
+{% else %}
+    <p><strong>There is no saved answer.</strong></p>
+{% endif %}
+<br>
+<form action="/question/{{ question_id }}/new-answer">
+<button type="submit" align="right">Add new answer</button>
+</form>
+<form action="/list" method="get">
+    <br>
+    <input type="submit" value="Go back to Homepage"/>
+</form>
 </body>
 </html>

@@ -1,23 +1,15 @@
 import connection
+import util
 from datetime import datetime
-import time
 import calendar
+import time
 
-def get_all_questions():
-    questions = connection.read_csv('question.csv')
-    for item in questions:
-        item['submission_time'] = datetime.utcfromtimestamp(int(item['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
-    return questions
-
-def get_all_answers():
-    answers = connection.read_csv('answer.csv')
-    for item in answers:
-        item['submission_time'] = datetime.utcfromtimestamp(int(item['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
-    return answers
+def get_current_time(format='%Y-%m-%d %H:%M:%S'):
+    return datetime.utcfromtimestamp(time.time()).strftime(format)
 
 
 def get_question_by_id(question_id):
-    questions = get_all_questions()
+    questions = connection.read_csv("question.csv")
     question_data = []
     for item in questions:
         item['id'] = int(item['id'])
@@ -27,7 +19,7 @@ def get_question_by_id(question_id):
 
 
 def get_answers_by_question_id(question_id):
-    answers = get_all_answers()
+    answers = connection.read_csv("answer.csv")
     answer_data = []
     for answer in answers:
         answer['question_id'] = int(answer['question_id'])
@@ -36,11 +28,11 @@ def get_answers_by_question_id(question_id):
     return answer_data
 
 
-def question_add(ids, submission_time, title, message, image, view_number=0, vote_number=0):
-    question_added = {'id': ids,
-                      'submission_time': submission_time,
-                      'view_number': view_number,
-                      'vote_number': vote_number,
+def question_add(title, message, image):
+    question_added = {'id': util.get_next_id('question.csv'),
+                      'submission_time': get_current_time(),
+                      'view_number': 0,
+                      'vote_number': 0,
                       'title': title,
                       'message': message,
                       'image': image,
@@ -49,12 +41,24 @@ def question_add(ids, submission_time, title, message, image, view_number=0, vot
     return question_added
 
 
-def answer_add(ids, submission_time, message, image, question_id, vote_number=0):
-    answer_added= {'id': ids,
-                  'submission_time': submission_time,
-                  'vote_number': vote_number,
+def answer_add(message, image, question_id):
+    answer_added= {'id': util.get_next_id('answer.csv'),
+                  'submission_time': get_current_time(),
+                  'vote_number': 0,
                   'question_id': question_id,
                   'message': message,
                   'image': image}
     connection.add_answer(answer_added)
     return answer_added
+
+def edit_question(title, message, id_, view_number=0, vote_number=0, image=""):
+    edited_question = {'id': id_,
+                       'submission_time': get_current_time(),
+                       'title': title,
+                       'message': message,
+                       'view_number': view_number,
+                       'vote_number': vote_number,
+                       'image': image,
+                       }
+    connection.edit_question(edited_question)
+    return edited_question

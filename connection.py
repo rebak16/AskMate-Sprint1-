@@ -13,7 +13,7 @@ def read_csv(filename, one_question_id=None):
         sorted_datas = sorted(quest_reader, key=lambda row: row['submission_time'], reverse=True)
         for row in sorted_datas:
             question = dict(row)
-            if one_question_id is not None and one_question_id == question['id']:
+            if one_question_id is not None and int(one_question_id) == int(question['id']):
                 return question
             question_list.append(question)
 
@@ -24,6 +24,17 @@ def add_question(new_question):
     with open('question.csv', "a") as question:
         writer = csv.DictWriter(question, fieldnames=DATA_HEADER)
         writer.writerow(new_question)
+
+def edit_question(edited_question):
+    question_list = read_csv("question.csv")
+    with open('question.csv', "w") as f:
+        writer = csv.DictWriter(f, fieldnames=DATA_HEADER)
+        writer.writeheader()
+        for question in question_list:
+            if question["id"] == edited_question["id"]:
+                writer.writerow(edited_question)
+            else:
+                writer.writerow(question)
 
 
 def add_answer(new_answer):
