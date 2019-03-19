@@ -1,10 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-
-import time
-import calendar
-import util
 import data_manager
-import connection
 
 app = Flask(__name__)
 
@@ -37,10 +32,12 @@ def route_question_add():
 
 
 @app.route("/question/<int:question_id>/new-answer", methods=['GET', 'POST'])
-def route_answer_add(question_id):
+def route_answer_add(question_id=None):
     if request.method == 'POST':
-        data_manager.answer_add(request.form.get('message'), question_id)
-        return redirect("/questions/{}".format(question_id))
+        data_manager.answer_add(request.form['message'], question_id)
+        datas = get_question_and_answer_by_id(question_id)
+        question_id = datas['question_id']
+        return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
 
     return render_template('/add_new_answer.html', question_id=question_id)
 
