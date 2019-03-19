@@ -14,10 +14,11 @@ def read_datas(cursor):
     return names
 
 @database_common.connection_handler
-def get_question_by_id(cursor):
-    cursor.execute("""select * from question where id = question.id""")
-    names = cursor.fetchall()
-    return names
+def get_question_by_id(cursor, question_id):
+    cursor.execute("""select * from question where id = %(id)s""",
+                    {'id' : question_id})
+    quest_datas = cursor.fetchall()
+    return quest_datas
     '''questions = connection.read_datas()
     question_data = []
     for item in questions:
@@ -27,10 +28,11 @@ def get_question_by_id(cursor):
     return question_data'''
 
 @database_common.connection_handler
-def get_answers_by_question_id(cursor):
-    cursor.execute("""select * from answer, question where question_id = question.id""")
-    names = cursor.fetchall()
-    return names
+def get_answers_by_question_id(cursor, question_id):
+    cursor.execute("""select * from answer where question_id = %(question_id)s""",
+                   {'question_id' : question_id})
+    answ_datas = cursor.fetchall()
+    return answ_datas
     '''answers = connection.read_csv("answer.csv")
     answer_data = []
     for answer in answers:
