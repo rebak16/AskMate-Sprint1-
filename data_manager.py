@@ -16,17 +16,30 @@ def read_datas(cursor):
 @database_common.connection_handler
 def get_question_by_id(cursor, question_id):
     cursor.execute("""select * from question where id = %(id)s""",
-                    {'id': question_id})
+                    {'id' : question_id})
     quest_datas = cursor.fetchall()
     return quest_datas
-
+    '''questions = connection.read_datas()
+    question_data = []
+    for item in questions:
+        item['id'] = int(item['id'])
+        if question_id == item['id']:
+            question_data.append(item)
+    return question_data'''
 
 @database_common.connection_handler
 def get_answers_by_question_id(cursor, question_id):
     cursor.execute("""select * from answer where question_id = %(question_id)s""",
-                   {'question_id': question_id})
+                   {'question_id' : question_id})
     answ_datas = cursor.fetchall()
     return answ_datas
+    '''answers = connection.read_csv("answer.csv")
+    answer_data = []
+    for answer in answers:
+        answer['question_id'] = int(answer['question_id'])
+        if question_id == answer['question_id']:
+            answer_data.append(answer)
+    return answer_data'''
 
 @database_common.connection_handler
 def question_add(cursor, title, message):
@@ -45,15 +58,13 @@ def get_newest_id(cursor):
 
 
 @database_common.connection_handler
-def answer_add(message, image, question_id):
-    answer_added= {'id': util.get_next_id('answer.csv'),
-                  'submission_time': get_current_time(),
-                  'vote_number': 0,
-                  'question_id': question_id,
+def answer_add(cursor, message, question_id):
+    dt = datetime.now()
+    cursor.execute("insert into answer (submission_time, message, question_id) values(%(submission_time)s,"
+                   "%(message)s,%(question_id)s)",
+                {'submission_time': dt,
                   'message': message,
-                  'image': image}
-    connection.add_answer(answer_added)
-    return answer_added
+                 'question_id':question_id})
 
 
 @database_common.connection_handler
