@@ -49,10 +49,11 @@ def route_answer_add(question_id=None):
 @app.route("/question/<int:question_id>/edit", methods=['GET', 'POST'])
 def route_edit(question_id=None):
     if request.method == 'POST':
-        a = data_manager.edit_question(request.form.get('title'), request.form.get('message'))
+        a = data_manager.edit_question(request.form.get('title'), request.form.get('message'),
+                                       id_=question_id)
         return redirect(url_for('get_question_and_answer_by_id', question_id=a['id']))
 
-    q = connection.read_csv("question.csv", one_question_id=question_id)
+    q = data_manager.read_datas()
     return render_template('/edit_question.html', q=q, title=q["title"], message=q["message"])
 
 
