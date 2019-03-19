@@ -1,31 +1,43 @@
 import connection
 import util
 from datetime import datetime
-import calendar
 import time
+import database_common
 
 def get_current_time(format='%Y-%m-%d %H:%M:%S'):
     return datetime.utcfromtimestamp(time.time()).strftime(format)
 
+@database_common.connection_handler
+def read_datas(cursor):
+    cursor.execute("""SELECT * FROM question order by submission_time desc """)
+    names = cursor.fetchall()
+    return names
 
-def get_question_by_id(question_id):
-    questions = connection.read_csv("question.csv")
+@database_common.connection_handler
+def get_question_by_id(cursor):
+    cursor.execute("""select * from question where id = question.id""")
+    names = cursor.fetchall()
+    return names
+    '''questions = connection.read_datas()
     question_data = []
     for item in questions:
         item['id'] = int(item['id'])
         if question_id == item['id']:
             question_data.append(item)
-    return question_data
+    return question_data'''
 
-
-def get_answers_by_question_id(question_id):
-    answers = connection.read_csv("answer.csv")
+@database_common.connection_handler
+def get_answers_by_question_id(cursor):
+    cursor.execute("""select * from answer, question where question_id = question.id""")
+    names = cursor.fetchall()
+    return names
+    '''answers = connection.read_csv("answer.csv")
     answer_data = []
     for answer in answers:
         answer['question_id'] = int(answer['question_id'])
         if question_id == answer['question_id']:
             answer_data.append(answer)
-    return answer_data
+    return answer_data'''
 
 
 def question_add(title, message, image):
