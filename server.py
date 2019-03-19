@@ -18,8 +18,8 @@ def route_list():
 
 @app.route('/questions/<int:question_id>')
 def get_question_and_answer_by_id(question_id=None):
-    quest_datas = data_manager.get_question_by_id()
-    answ_datas = data_manager.get_answers_by_question_id()
+    quest_datas = data_manager.get_question_by_id(question_id)
+    answ_datas = data_manager.get_answers_by_question_id(question_id)
     return render_template('questions.html',
                            question_id=question_id,
                            quest_datas=quest_datas,
