@@ -16,9 +16,9 @@ def get_current_time(format='%Y-%m-%d %H:%M:%S'):
     return datetime.utcfromtimestamp(time.time()).strftime(format)
 
 @database_common.connection_handler
-def get_question_by_id(cursor, quesiton_id):
+def get_question_by_id(cursor, question_id):
     cursor.execute("""SELECT * from question where id= %(id)s""",
-                   {'id': quesiton_id})
+                   {'id': question_id})
     quest_datas = cursor.fetchall()
     return quest_datas
 
