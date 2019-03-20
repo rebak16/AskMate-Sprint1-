@@ -6,12 +6,14 @@
 </head>
 <body>
 <h1>{{ 'New' if is_edit else 'Edit'}} question</h1>
-            <form action="/question/{{ question_id }}" method="post">
+            {% for data in datas %}
+            <form  method="post">
             <label for="title">{{ 'New' if is_edit else 'Edit'}} question:</label><br>
-            <textarea type="text" name="title" id="title" rows="8" cols="80">{{ title if title }}</textarea><br>
+            <textarea type="text" name="title" id="title" rows="8" cols="80">{{ data.title }}</textarea><br>
             <label for="message">Message:</label><br>
-            <textarea type="text" name="message" id="message" rows="8" cols="80">{{ message if message }}</textarea><br><br>
+            <textarea type="text" name="message" id="message" rows="8" cols="80">{{ data.message }}</textarea><br><br>
             <button type="submit" align="right">{{ 'Add' if is_edit else 'Edit'}} new question</button>
+            {% endfor %}
             </form>
 </body>
 </html>

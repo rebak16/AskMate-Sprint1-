@@ -35,8 +35,6 @@ def route_question_add():
 def route_answer_add(question_id=None):
     if request.method == 'POST':
         data_manager.answer_add(request.form['message'], question_id)
-        datas = get_question_and_answer_by_id(question_id)
-        question_id = datas['question_id']
         return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
 
     return render_template('/add_new_answer.html', question_id=question_id)
@@ -45,12 +43,10 @@ def route_answer_add(question_id=None):
 @app.route("/question/<int:question_id>/edit", methods=['GET', 'POST'])
 def route_edit(question_id=None):
     if request.method == 'POST':
-        a = data_manager.edit_question(request.form.get('title'), request.form.get('message'),
-                                       id_=question_id)
-        return redirect(url_for('get_question_and_answer_by_id', question_id=a['id']))
-
-    q = data_manager.read_datas()
-    return render_template('/edit_question.html', q=q, title=q["title"], message=q["message"])
+        data_manager.edit_question(request.form['title'], request.form['message'], question_id)
+        return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
+    datas = data_manager.get_question_by_id(question_id)
+    return render_template('/edit_question.html', datas=datas, question_id=question_id)
 
 
 if __name__ == '__main__':

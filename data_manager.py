@@ -55,14 +55,6 @@ def answer_add(cursor, message, question_id):
 
 
 @database_common.connection_handler
-def edit_question(title, message, id_, view_number=0, vote_number=0, image=""):
-    edited_question = {'id': id_,
-                       'submission_time': get_current_time(),
-                       'title': title,
-                       'message': message,
-                       'view_number': view_number,
-                       'vote_number': vote_number,
-                       'image': image,
-                       }
-    connection.edit_question(edited_question)
-    return edited_question
+def edit_question(cursor, title, message, question_id):
+    cursor.execute("update question set title = %(title)s, message = %(message)s where id = %(id)s",
+                   dict(title=title, message=message, id=question_id))
