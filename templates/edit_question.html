@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>{{ 'New' if is_edit else 'Edit'}} question</h1>
-            {%  for data in question_to_edit %}
+            {% for data in datas %}
             <form method="post">
             <label for="title">{{ 'New' if is_edit else 'Edit'}} question:</label><br>
             <textarea type="text" name="title" id="title" rows="8" cols="80">{{ data.title }}</textarea><br>
