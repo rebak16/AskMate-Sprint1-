@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def route_list():
-    questions = data_manager.read_datas()
+    questions = data_manager.read_question_datas()
     return render_template('/index.html', questions=questions)
 
 
@@ -41,12 +41,22 @@ def route_answer_add(question_id=None):
 
 
 @app.route("/question/<int:question_id>/edit", methods=['GET', 'POST'])
-def route_edit(question_id=None):
+def route_edit_question(question_id=None):
     if request.method == 'POST':
         data_manager.edit_question(request.form['title'], request.form['message'], question_id)
         return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
     datas = data_manager.get_question_by_id(question_id)
-    return render_template('/edit_question.html', datas=datas, question_id=question_id)
+    return render_template('/edit_question.html', datas=datas)
+
+
+@app.route('/answer/<int:answer_id>/edit', methods=['GET', 'POST'])
+def route_edit_answer(answer_id=None):
+    answer_datas = data_manager.get_answer_datas(answer_id)
+    if request.method == 'POST':
+        data_manager.edit_answer(request.form['message'], answer_id)
+        question_id = answer_datas[0]['question_id']
+        return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
+    return render_template('/edit_answer.html', datas=answer_datas)
 
 
 if __name__ == '__main__':
