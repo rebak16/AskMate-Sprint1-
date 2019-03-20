@@ -49,12 +49,10 @@ def route_answer_add(question_id):
 def route_edit(question_id):
     if request.method == 'POST':
         data_manager.edit_question(request.form.get('title'), request.form.get('message'),
-                                       id=question_id)
-        edited_question = data_manager.get_question_by_id(question_id)
-        return redirect(url_for('get_question_and_answer_by_id', question_id=edited_question['id']))
+                                       question_id)
+        return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
     question_to_edit = data_manager.get_question_by_id(question_id)
-    q = data_manager.read_datas()
-    return render_template('/edit_question.html', question_to_edit=question_to_edit, q=q)
+    return render_template('/edit_question.html', question_to_edit=question_to_edit)
 
 
 if __name__ == '__main__':
