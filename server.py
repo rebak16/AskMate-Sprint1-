@@ -40,20 +40,21 @@ def route_question_add():
 def route_answer_add(question_id):
     if request.method == 'POST':
         data_manager.answer_add(request.form.get('message'), question_id)
-        return redirect("/questions/{}".format(question_id))
+        return redirect(url_for('get_question_and_answer_by_id', question_id=question_id))
 
     return render_template('/add_new_answer.html', question_id=question_id)
 
 
 @app.route("/question/<int:question_id>/edit", methods=['GET', 'POST'])
-def route_edit(question_id=None):
+def route_edit(question_id):
     if request.method == 'POST':
-        a = data_manager.edit_question(request.form.get('title'), request.form.get('message'),
-                                       id_=question_id)
-        return redirect(url_for('get_question_and_answer_by_id', question_id=a['id']))
-
+        data_manager.edit_question(request.form.get('title'), request.form.get('message'),
+                                       id=question_id)
+        edited_question = data_manager.get_question_by_id(question_id)
+        return redirect(url_for('get_question_and_answer_by_id', question_id=edited_question['id']))
+    question_to_edit = data_manager.get_question_by_id(question_id)
     q = data_manager.read_datas()
-    return render_template('/edit_question.html', q=q, title=q["title"], message=q["message"])
+    return render_template('/edit_question.html', question_to_edit=question_to_edit, q=q)
 
 
 if __name__ == '__main__':
