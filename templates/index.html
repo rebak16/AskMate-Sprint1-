@@ -30,9 +30,9 @@
 <button class="add_question" type="submit" align="right">Add new question</button>
 </form>
     <br>
-    <form action="{{ url_for('search_questions') }}" method="post">
+    <form action="{{ url_for('search_questions') }}">
     <div class="search-box">
-        <input class="search-txt" type="text" id="search" name="" placeholder="Search..." required minlength="1">
+        <input class="search-txt" type="text" id="search" name="q" placeholder="Search..." required minlength="1">
         <a class="search-btn" >
     <i class="fas fa-search"></i>
 
