@@ -61,7 +61,7 @@ def route_edit_answer(answer_id=None):
 
 @app.route('/search')
 def search_questions():
-    search_phrase = request.args.get("q")
+    search_phrase = request.args.get("search")
     search_results = data_manager.search_questions(search_phrase)
     return render_template('search_results.html', search_results=search_results, search_phrase=search_phrase)
 
