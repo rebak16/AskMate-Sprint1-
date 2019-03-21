@@ -7,14 +7,15 @@
     <title>AskMate(Sprint1)</title>
 </head>
 <body>
-    <h1>AskMate HomePage</h1>
+    <h1>User Stories</h1>
     <h2>Questions</h2>
-<table>
+<table border="1">
     <tr>
         <th>Submission time</th>
         <th>View number</th>
         <th>Vote number</th>
         <th>Title</th>
+        <th></th>
     </tr>
         {% for question in questions %}
     <tr>
@@ -22,20 +23,23 @@
         <td align='center'>{{ question.view_number }}</td>
         <td align='center'>{{ question.vote_number }}</td>
         <td align='center'><a href="questions/{{question.id}}">{{ question.title }}</a></td>
+        <td> <form method="get"><a href="questions/{{question.id }}/delete"></a>
+        <button type="submit" align="right" formaction="/question/{{ question.id }}/delete">Delete</button>
+        </form>
+        </td>
     </tr>
         {% endfor %}
 </table>
     <br>
 <form action="/add-new-question">
-<button class="add_question" type="submit" align="right">Add new question</button>
+<button type="submit" align="right">Add new question</button>
 </form>
     <br>
-    <form action="{{ url_for('search_questions') }}">
-    <div class="search-box">
-        <input class="search-txt" type="text" id="search" name="search" placeholder="Search..." required minlength="1">
-        <a class="search-btn" >
-    <i class="fas fa-search"></i>
-        </a>
-    </div></form>
+    <form method="post">
+        <div class="search-box">
+            <input class="search-txt" type="text" id="search_phrase" name="search_phrase" placeholder="Search..." required minlength="1">
+            <button class="search-btn" formaction="/search"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
 </body>
 </html>

@@ -82,10 +82,15 @@ def edit_answer(cursor, message, answer_id):
                    dict(message=message, id=answer_id))
 
 @database_common.connection_handler
-def search_questions(cursor, search_phrase):
-    cursor.execute("""SELECT * FROM question WHERE title LIKE %(search_phrase)s
-                      or message like %(search_phrase)s;""",
+def search_question(cursor, search_phrase):
+    cursor.execute("""SELECT * FROM question
+                          WHERE title ILIKE %(search_phrase)s OR message ILIKE %(search_phrase)s;""",
                    {'search_phrase': '%' + search_phrase + '%'})
-    search_results = cursor.fetchall()
-    return search_results
+    search_result = cursor.fetchall()
+    return search_result
 
+@database_common.connection_handler
+def delete_question(cursor, question_id):
+    cursor.execute("""DELETE FROM question
+                          WHERE id=%(id)s;""",
+                   {'id': question_id})
