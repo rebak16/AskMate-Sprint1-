@@ -61,9 +61,16 @@ def route_edit_answer(answer_id=None):
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    keyword = request.args.get('search')
-    search_result = data_manager.search_question(keyword)
-    return render_template('search_results.html', keyword=keyword, search_result=search_result)
+    search_phrase = request.form.get('search_phrase')
+    search_result = data_manager.search_question(search_phrase)
+    return render_template('search_results.html', search_phrase=search_phrase, search_result=search_result)
+
+
+@app.route("/question/<int:question_id>/delete", methods=['GET'])
+def delete_question(question_id):
+    data_manager.delete_question(question_id)
+    return redirect(url_for('route_list'))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',
