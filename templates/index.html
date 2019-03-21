@@ -7,9 +7,9 @@
     <title>AskMate(Sprint1)</title>
 </head>
 <body>
-    <h1>User Stories</h1>
+    <h1>AskMate HomePage</h1>
     <h2>Questions</h2>
-<table border="1">
+<table>
     <tr>
         <th>Submission time</th>
         <th>View number</th>
@@ -30,11 +30,12 @@
 <button class="add_question" type="submit" align="right">Add new question</button>
 </form>
     <br>
+    <form action="{{ url_for('search_questions') }}" method="post">
     <div class="search-box">
         <input class="search-txt" type="text" id="search" name="" placeholder="Search..." required minlength="1">
-        <a class="search-btn" href="/search">
+        <a class="search-btn" >
     <i class="fas fa-search"></i>
-        </a>
-    </div>
+
+    </div></form>
 </body>
 </html>
