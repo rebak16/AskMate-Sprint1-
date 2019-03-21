@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <title>AskMate(Sprint1)</title>
 </head>
 <body>
@@ -25,7 +27,14 @@
 </table>
     <br>
 <form action="/add-new-question">
-<button type="submit" align="right">Add new question</button>
+<button class="add_question" type="submit" align="right">Add new question</button>
 </form>
+    <br>
+    <div class="search-box">
+        <input class="search-txt" type="text" id="search" name="" placeholder="Search..." required minlength="1">
+        <a class="search-btn" href="/search">
+    <i class="fas fa-search"></i>
+        </a>
+    </div>
 </body>
 </html>
