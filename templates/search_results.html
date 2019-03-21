@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Search results</title>
-     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 <h1>Search results for: "{{ search_phrase }}"</h1>
@@ -20,7 +19,7 @@
             <td>{{ result["submission_time"] }}</td>
             <td>{{ result["title"] }}</td>
             <td>{{ result["message"] }}</td>
-            <td><form action="/questions/{{ question_id }}" method="get"><br><input type="submit" value="See the question"/></form></td>
+            <td><a href="{{ url_for('get_question_and_answer_by_id', question_id=result['id']) }}">See question</a></td>
         </tr>
     {% endfor %}
     {% else %}
