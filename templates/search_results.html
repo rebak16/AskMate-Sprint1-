@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Search results</title>
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<h1>Search results for: "{{ search_phrase }}"</h1>
-    {% if search_result %}
-    <table>
-        <tr>
-        <th>Submission time</th>
-        <th>View number</th>
-        <th>Vote number</th>
-        <th>Title</th>
-        <th>Message</th>
-        </tr>
-
+<h1>Search results for: {{ search_phrase }}</h1>
+    {% if search_results %}
+        {% for result in search_results %}
+            <table>
+                <tr>
+                <th>Submission time</th>
+                <th>View number</th>
+                <th>Vote number</th>
+                <th>Title</th>
+                <th>Message</th>
+                </tr>
+                <tr>
+                    <td>{{ result["submission_time"] }}</td>
+                    <td></td>
+                    <td></td>
+                    <td><a href="{{ url_for('get_question_and_answer_by_id', question_id = result["id"]) }}">
+                    {{ result["title"] }}
+                    </a>
+                    </td>
+                    <td>{{ result["message"] }}</td>
+                </tr>
+        {% endfor %}
     {% else %}
             <h2>Sorry, no results</h2>
     {% endif %}
