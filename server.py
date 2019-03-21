@@ -59,6 +59,12 @@ def route_edit_answer(answer_id=None):
     return render_template('/edit_answer.html', datas=answer_datas)
 
 
+@app.route('/search', methods=['POST'])
+def search_questions():
+    search_phrase = request.form["search_phrase"]
+    search_results = data_manager.search_questions(search_phrase)
+    return render_template('search_results.html', search_results=search_results, search_phrase=search_phrase)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0',
             debug=True,

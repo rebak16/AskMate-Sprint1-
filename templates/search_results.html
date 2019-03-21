@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search results</title>
+</head>
+<body>
+<h1>Search results for: "{{ search_phrase }}"</h1>
+    {% if search_result %}
+    <table>
+        <tr>
+        <th>Submission time</th>
+        <th>View number</th>
+        <th>Vote number</th>
+        <th>Title</th>
+        <th>Message</th>
+        </tr>
+
+    {% else %}
+            <h2>Sorry, no results</h2>
+    {% endif %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,85 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: white;
+    font-family: arial;
+}
+
+table{
+    padding: 30px;
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    line-height: 2;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+
+}
+
+tr:hover {background-color: lightgrey;
+        border-radius: 5px;}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    letter-spacing: 0.2em;
+    background-color: lightgrey;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: arial;
+}
+
+
+button {
+    font-size: 18px;
+    padding: 10px;
+    margin: 40px;
+}
+
+.search-box{
+    position: absolute;
+    top: 10%;
+    left: 75%;
+    transform: translate(-50%,-50%);
+    background: #2f3640;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+}
+.search-box:hover > .search-txt {
+ width: 240px;
+ padding: 0 6px;
+}
+
+.search-box:hover > .search-btn {
+ background: white;
+ color: black;
+}
+
+.search-btn {
+ color: #e84118;
+ float: right;
+ width: 40px;
+ height: 40px;
+ border-radius: 50%;
+ background: #2f3640;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+transition: 0.4s;
+}
+.search-txt {
+ border: none;
+ background: none;
+ outline: none;
+ float: left;
+ padding: 0;
+ color: white;
+ font-size: 16px;
+ transition: 0.4s;
+ line-height: 40px;
+ width: 0px;
+}
