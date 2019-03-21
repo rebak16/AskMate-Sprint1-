@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>AskMate(Sprint1)</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 <h1>Question</h1>
-<table border="1">
+<table>
     <tr>
         <th>Submission time</th>
         <th>View number</th>
@@ -32,7 +33,7 @@
   </form>
 <h1>Answer</h1>
 {% if answ_datas %}
-    <table border="1">
+    <table>
         <tr>
             <th>Submission time</th>
             <th>Vote number</th>
@@ -63,7 +64,7 @@
 </form>
 <form action="/list" method="get">
     <br>
-    <input type="submit" value="Go back to Homepage"/>
+    <button type="submit">Go back to Homepage</button>
 </form>
 </body>
 </html>

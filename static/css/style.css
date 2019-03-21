@@ -1,12 +1,61 @@
 body{
     margin: 0;
     padding: 0;
-    background: #e84118;
+    background: white;
+    font-family: arial;
 }
+
+table{
+    padding: 30px;
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    line-height: 2;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+}
+
+tr:hover {
+    background-color: lightgrey;
+    border-radius: 10px 10px
+    }
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    letter-spacing: 0.2em;
+    background-color: lightgrey;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: arial;
+    border-radius: 28px;
+}
+
+h2 {letter-spacing: 0.2em;
+    color: grey;
+    text-align: center;
+    font-size: 40px;
+    font-family: arial;}
+
+input{
+    background-color: #A5D6D9;
+    font-size: 20px;
+    border-radius: 28px;
+}
+button {
+    font-size: large;
+    padding: 10px;
+    border-radius: 28px;
+
+}
+
 .search-box{
-    position: absolute;
-    top: 10%;
-    left: 75%;
+    position:absolute;
+    top: 16%;
+    left: 80%;
     transform: translate(-50%,-50%);
     background: #2f3640;
     height: 40px;

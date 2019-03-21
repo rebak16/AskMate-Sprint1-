@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ 'New' if is_edit else 'Edit'}} question</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 <h1>{{ 'New' if is_edit else 'Edit'}} question</h1>
