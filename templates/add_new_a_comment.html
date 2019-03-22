@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New comment</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<h1>New comment</h1>
+            <form action="/question/{{question_id}}/{{ answer_id }}/new-a_comment" method="post">
+                <label for="message">comment:</label><br>
+                <textarea type="text" name="message" id="message" rows="8" cols="80"></textarea><br><br>
+                <button class="label" type="submit" align="right">Add new comment</button>
+            </form>
+</body>
+</html>
