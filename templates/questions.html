@@ -24,24 +24,51 @@
             <td align='center'>{{ data.title }}</td>
             <td align='center'>{{ data.message }}</td>
             <td align='center'>{{ data.image }}</td>
+            <td><form action="/question/{{ question_id }}/edit">
+                    <input type="submit" value="Edit question"></td>
+                </form>
+            <td><form action="/question/{{ question_id }}/new-q_comment">
+                    <input type="submit" value="comment"></td>
+                </form>
         </tr>
     {% endfor %}
 </table>
 <br>
-  <form action="/question/{{ question_id }}/edit">
-	<button type="submit" align="right">Edit question</button>
-  </form>
+
+
+{% if q_comm_datas %}
+
+        {% for data in q_comm_datas %}
+            {% if data.answer_id == None %}
+                <table class="comment">
+                <th class="comment_head">comment</th>
+                      <tr>
+            <th>Submission time</th>
+            <th>Message</th>
+        </tr>
+            <tr>
+
+                <td align='center'>{{ data.submission_time }}</td>
+                <td class="message" align='center'>{{ data.message }}</td>
+            </tr>
+                </table>
+            {% endif %}
+        {% endfor %}
+
+
+{% endif %}
+
+
 <h1>Answer</h1>
 {% if answ_datas %}
-    <table>
-        <tr>
-            <th>Submission time</th>
-            <th>Vote number</th>
-            <th>Message</th>
-            <th>Image</th>
-        </tr>
-
         {% for data in answ_datas %}
+            <table class="answer">
+               <tr>
+                    <th>Submission time</th>
+                    <th>Vote number</th>
+                    <th>Message</th>
+                    <th>Image</th>
+                </tr>
             <tr>
 
                 <td align='center'>{{ data.submission_time }}</td>
@@ -52,19 +79,56 @@
                     <input type="submit" value="Edit answer">
                 </form>
                 </td>
+                <td><form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
+                    <input type="submit" value="comment">
+                </form>
+                </td>
             </tr>
+
+
+            {% if a_comm_datas %}
+                    {% for i in a_comm_datas %}
+                         {% if i.answer_id == data.id %}
+                             <table class="comment">
+                                <tr class="comment_head">
+                                <th>comment</th>
+                                </tr>
+                                <tr class="comment_head">
+                                <th>Submission time</th>
+                                <th>Message</th>
+                                </tr>
+                                <tr>
+
+                                    <td align='left'>{{ i.submission_time }}</td>
+                                    <td align='left'>{{ i.message }}</td>
+                                    <td><form action="/comment/{{ i.id }}/edit">
+                                        <input type="submit" value="Edit comment"></td>
+                                    </form>
+                                    <td><form action="/comment/{{ i.id }}/delete">
+                                        <input type="submit" value="Delete comment"></td>
+                                    </form>
+                                </tr>
+                             </table>
+                         {% endif %}
+                    {% endfor %}
+
+            {% else %}
+
+            {% endif %}
+            </tr>
+             </table>
+            <br>
         {% endfor %}
-    </table>
-{% else %}
-    <p><strong>There is no saved answer.</strong></p>
+
+
 {% endif %}
 <br>
 <form action="/question/{{ question_id }}/new-answer">
-<button type="submit" align="right">Add new answer</button>
+<button class="left_buttons" type="submit" align="right">Add new answer</button>
 </form>
 <form action="/list" method="get">
     <br>
-    <button type="submit">Go back to Homepage</button>
+    <button class="left_buttons" type="submit">Go back to Homepage</button>
 </form>
 </body>
 </html>

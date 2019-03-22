@@ -8,6 +8,7 @@ def read_question_datas(cursor):
     names = cursor.fetchall()
     return names
 
+
 @database_common.connection_handler
 def get_question_by_id(cursor, question_id):
     cursor.execute("""select * from question where id = %(id)s""",
@@ -28,13 +29,16 @@ def get_answers_by_question_id(cursor, question_id):
                    {'question_id': question_id})
     answ_datas = cursor.fetchall()
     return answ_datas
-    '''answers = connection.read_csv("answer.csv")
-    answer_data = []
-    for answer in answers:
-        answer['question_id'] = int(answer['question_id'])
-        if question_id == answer['question_id']:
-            answer_data.append(answer)
-    return answer_data'''
+
+
+
+@database_common.connection_handler
+def get_comment_by_question_id(cursor, question_id):
+    cursor.execute("""select * from comment where question_id = %(question_id)s""",
+                   {'question_id' : question_id})
+    comm_datas = cursor.fetchall()
+    return comm_datas
+
 
 @database_common.connection_handler
 def question_add(cursor, title, message):
@@ -64,6 +68,27 @@ def answer_add(cursor, message, question_id):
 
 
 @database_common.connection_handler
+def q_comment_add(cursor, message, question_id):
+    dt = datetime.now()
+    cursor.execute("insert into comment (submission_time, message, question_id) values(%(submission_time)s,"
+                   "%(message)s,%(question_id)s)",
+                {'submission_time': dt,
+                  'message': message,
+                 'question_id':question_id})
+
+
+@database_common.connection_handler
+def a_comment_add(cursor, message, question_id, answer_id):
+    dt = datetime.now()
+    cursor.execute("insert into comment (submission_time, message, question_id, answer_id) values(%(submission_time)s,"
+                   "%(message)s,%(question_id)s,%(answer_id)s)",
+                {'submission_time': dt,
+                  'message': message,
+                 'question_id':question_id,
+                 'answer_id':answer_id})
+
+
+@database_common.connection_handler
 def edit_question(cursor, title, message, question_id):
     cursor.execute("update question set title = %(title)s, message = %(message)s where id = %(id)s",
                    dict(title=title, message=message, id=question_id))
@@ -77,9 +102,17 @@ def get_answer_datas(cursor, answer_id):
 
 
 @database_common.connection_handler
+def get_comment_datas(cursor, comment_id):
+    cursor.execute("select * from comment where id = %(id)s",
+                   dict(id=comment_id))
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
 def edit_answer(cursor, message, answer_id):
     cursor.execute("update answer set message = %(message)s where id = %(id)s",
                    dict(message=message, id=answer_id))
+
 
 @database_common.connection_handler
 def search_question(cursor, search_phrase):
@@ -94,3 +127,14 @@ def delete_question(cursor, question_id):
     cursor.execute("""DELETE FROM question
                           WHERE id=%(id)s;""",
                    {'id': question_id})
+
+
+@database_common.connection_handler
+def edit_comment(cursor, message, comment_id):
+    cursor.execute("update comment set message = %(message)s where id = %(id)s",
+                   dict(message=message, id=comment_id))
+
+@database_common.connection_handler
+def delete_comment(cursor, comment_id):
+    cursor.execute("delete from comment where id = %(id)s",
+                   dict(id=comment_id))
