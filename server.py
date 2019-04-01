@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, escape
 import data_manager
 
 app = Flask(__name__)
@@ -8,7 +8,8 @@ app = Flask(__name__)
 @app.route('/list')
 def route_list():
     questions = data_manager.read_question_datas()
-    return render_template('/index.html', questions=questions)
+    return render_template('/index.html', questions=questions, session=session)
+
 
 
 @app.route('/questions/<int:question_id>')
@@ -111,6 +112,36 @@ def a_comment_add(question_id, answer_id=None):
         return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id))
 
     return render_template('/add_new_a_comment.html', question_id=question_id, answer_id=answer_id)
+
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('route_list'))
+    return render_template('/login.html', )
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
+
+@app.route('/registration', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        confirm_pw = request.form['confirm_password']
+        if password == confirm_pw:
+            data_manager.register(username, password)
+            return redirect(url_for("route_list"))
+    return render_template("register.html")
+
 
 
 if __name__ == '__main__':

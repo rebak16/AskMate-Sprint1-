@@ -15,13 +15,6 @@ def get_question_by_id(cursor, question_id):
                    {'id': question_id})
     quest_datas = cursor.fetchall()
     return quest_datas
-    '''questions = connection.read_datas()
-    question_data = []
-    for item in questions:
-        item['id'] = int(item['id'])
-        if question_id == item['id']:
-            question_data.append(item)
-    return question_data'''
 
 @database_common.connection_handler
 def get_answers_by_question_id(cursor, question_id):
@@ -122,6 +115,7 @@ def search_question(cursor, search_phrase):
     search_result = cursor.fetchall()
     return search_result
 
+
 @database_common.connection_handler
 def delete_question(cursor, question_id):
     cursor.execute("""DELETE FROM question
@@ -134,7 +128,18 @@ def edit_comment(cursor, message, comment_id):
     cursor.execute("update comment set message = %(message)s where id = %(id)s",
                    dict(message=message, id=comment_id))
 
+
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):
     cursor.execute("delete from comment where id = %(id)s",
                    dict(id=comment_id))
+
+
+@database_common.connection_handler
+def register(cursor, username, password):
+    dt = datetime.now()
+    cursor.execute("insert into registration(username, password, submission_time) values (%(username)s, %(password)s, "
+                   "%(submission_time)s)",
+                   {'username': username,
+                    'password': password,
+                    'submission_time': dt})
