@@ -21,6 +21,9 @@
         <label for="confirm_password">Confirm password:</label>
         <p><input class="reg" type="password" name="confirm_password"></p>
         <button class="reg" type="submit">Register</button>
+        {% if invalid_username %}
+            {{ invalid_username }}
+        {% endif %}
     </form>
 <form action="/list" method="get">
     <button class="homepage" type="submit">Go back to Homepage</button>

@@ -1,5 +1,6 @@
 from datetime import datetime
 import database_common
+import password_manager
 
 
 @database_common.connection_handler
@@ -138,10 +139,11 @@ def delete_comment(cursor, comment_id):
 @database_common.connection_handler
 def register(cursor, username, password, first_name, last_name, email):
     dt = datetime.now()
+    hash_pw = password_manager.hash_password(password)
     cursor.execute("insert into registration(username, password, submission_time, first_name, last_name, email) values (%(username)s, %(password)s, "
                    "%(submission_time)s, %(first_name)s, %(last_name)s, %(email)s)",
                    {'username': username,
-                    'password': password,
+                    'password': hash_pw,
                     'submission_time': dt,
                     'first_name': first_name,
                     'last_name': last_name,
