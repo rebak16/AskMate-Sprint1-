@@ -142,11 +142,14 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        hash_password = password_manager.hash_password(password)
         confirm_pw = request.form['confirm_password']
         if password == confirm_pw:
-            data_manager.register(username, hash_password, request.form['first_name'], request.form['last_name'], request.form['email'])
-            return redirect(url_for("route_list"))
+            try:
+                data_manager.register(username, password, request.form['first_name'], request.form['last_name'], request.form['email'])
+                return redirect('/')
+            except:
+                invalid_username = "Username is already used"
+                return render_template("register.html", invalid_username=invalid_username)
     return render_template("register.html")
 
 
