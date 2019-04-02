@@ -138,3 +138,7 @@ label, .label {
     margin-left: 25%;
 }
 
+button.homepage {
+    background-color: #444444;
+    color: white;
+}
