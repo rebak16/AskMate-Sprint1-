@@ -8,6 +8,11 @@
 </head>
 <body>
     <h1>User Stories</h1>
+    {% if 'username' in session %}
+        Logged in as %'username'
+    {% elif 'username' not in session %}
+        You are not logged in
+    {% endif %}
     <h2>Questions</h2>
 <table>
     <tr>
