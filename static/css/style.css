@@ -134,7 +134,10 @@ textarea {
     border-color: lightgray;
     margin-left: 25%;
 }
-label, .label {
+label, .label, .reg {
     margin-left: 25%;
 }
+.registration {
+    margin-left: 17%;
 
+}
