@@ -136,8 +136,9 @@ textarea {
 }
 label, .label, .reg {
     margin-left: 25%;
+    padding: 5px 15px;
 }
-.registration {
+.registrat {
     margin-left: 17%;
 
 }
