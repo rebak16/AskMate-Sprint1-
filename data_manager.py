@@ -143,3 +143,22 @@ def register(cursor, username, password):
                    {'username': username,
                     'password': password,
                     'submission_time': dt})
+
+
+@database_common.connection_handler
+def login(cursor, username):
+    cursor.execute("select password from registration where username = %(username)s",
+                   {'username': username})
+    return cursor.fetchone()['password']
+
+
+@database_common.connection_handler
+def vote_up(cursor, question_id):
+    cursor.execute("update question set vote_number = vote_number + 1 where id = %(id)s",
+                   {'id': int(question_id)})
+
+
+@database_common.connection_handler
+def vote_down(cursor, question_id):
+    cursor.execute("update question set vote_number = vote_number - 1 where id = %(id)s",
+                   {'id': int(question_id)})

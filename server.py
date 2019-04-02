@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 import data_manager
+import password_manager
 
 app = Flask(__name__)
 
@@ -8,8 +9,7 @@ app = Flask(__name__)
 @app.route('/list')
 def route_list():
     questions = data_manager.read_question_datas()
-    return render_template('/index.html', questions=questions, session=session)
-
+    return render_template('/index.html', questions=questions)
 
 
 @app.route('/questions/<int:question_id>')
@@ -120,15 +120,18 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
-        return redirect(url_for('route_list'))
-    return render_template('/login.html', )
+        hash_pw = data_manager.login(request.form['username'])
+        if hash_pw and password_manager.verify_password(request.form['password'], hash_pw):
+            session['username'] = request.form['username']
+        return redirect('/')
+    return render_template('/login.html')
+
 
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
-    return redirect(url_for('index'))
+    return redirect('/')
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -136,12 +139,24 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        hash_password = password_manager.hash_password(password)
         confirm_pw = request.form['confirm_password']
         if password == confirm_pw:
-            data_manager.register(username, password)
+            data_manager.register(username, hash_password)
             return redirect(url_for("route_list"))
     return render_template("register.html")
 
+
+@app.route('/question/<question_id>/vote-up', methods=['GET', 'POST'])
+def vote_up(question_id):
+    data_manager.vote_up(question_id)
+    return redirect(url_for('route_list', question_id=question_id))
+
+
+@app.route('/question/<question_id>/vote-down', methods=['GET', 'POST'])
+def vote_down(question_id):
+    data_manager.vote_down(question_id)
+    return redirect(url_for('route_list', question_id=question_id))
 
 
 if __name__ == '__main__':
