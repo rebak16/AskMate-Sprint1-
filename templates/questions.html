@@ -86,6 +86,7 @@
             </tr>
 
 
+
             {% if a_comm_datas %}
                     {% for i in a_comm_datas %}
                          {% if i.answer_id == data.id %}
@@ -98,7 +99,6 @@
                                 <th>Message</th>
                                 </tr>
                                 <tr>
-
                                     <td align='left'>{{ i.submission_time }}</td>
                                     <td align='left'>{{ i.message }}</td>
                                     <td><form action="/comment/{{ i.id }}/edit">
@@ -111,16 +111,13 @@
                              </table>
                          {% endif %}
                     {% endfor %}
-
-            {% else %}
-
             {% endif %}
             </tr>
              </table>
             <br>
         {% endfor %}
-
-
+{% else %}
+        There is no saved answer.<br>
 {% endif %}
 <br>
 <form action="/question/{{ question_id }}/new-answer">
