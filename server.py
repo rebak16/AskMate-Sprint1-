@@ -121,7 +121,10 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def login():
     if request.method == 'POST':
         hash_pw = data_manager.login(request.form['username'])
-        if hash_pw and password_manager.verify_password(request.form['password'], hash_pw):
+        if hash_pw and password_manager.verify_password(request.form['password'], hash_pw) is False:
+            invalid_username_or_password = 'Invalid username or password!'
+            return render_template('/login.html', invalid_username_or_password=invalid_username_or_password)
+        elif hash_pw and password_manager.verify_password(request.form['password'], hash_pw):
             session['username'] = request.form['username']
         return redirect('/')
     return render_template('/login.html')

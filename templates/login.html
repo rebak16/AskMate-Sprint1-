@@ -12,8 +12,11 @@
         <label for="username">Username:</label>
         <p><input type="text" id="login" name="username"></p>
         <label for="password">Password:</label>
-        <p><input type="text" name="password" id="login"></p>
+        <p><input type="password" name="password" id="login"></p>
         <button type="submit">Login</button>
+        {% if invalid_username_or_password %}
+            {{ invalid_username_or_password }}
+    {% endif %}
     </form>
 </div>
 </body>
