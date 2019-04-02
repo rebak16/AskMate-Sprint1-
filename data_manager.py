@@ -136,13 +136,16 @@ def delete_comment(cursor, comment_id):
 
 
 @database_common.connection_handler
-def register(cursor, username, password):
+def register(cursor, username, password, first_name, last_name, email):
     dt = datetime.now()
-    cursor.execute("insert into registration(username, password, submission_time) values (%(username)s, %(password)s, "
-                   "%(submission_time)s)",
+    cursor.execute("insert into registration(username, password, submission_time, first_name, last_name, email) values (%(username)s, %(password)s, "
+                   "%(submission_time)s, %(first_name)s, %(last_name)s, %(email)s)",
                    {'username': username,
                     'password': password,
-                    'submission_time': dt})
+                    'submission_time': dt,
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'email': email})
 
 
 @database_common.connection_handler
@@ -162,3 +165,9 @@ def vote_up(cursor, question_id):
 def vote_down(cursor, question_id):
     cursor.execute("update question set vote_number = vote_number - 1 where id = %(id)s",
                    {'id': int(question_id)})
+
+
+@database_common.connection_handler
+def list_of_users(cursor):
+    cursor.execute("select first_name, last_name, username, email from registration")
+    return cursor.fetchall()

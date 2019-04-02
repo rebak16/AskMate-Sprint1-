@@ -8,12 +8,18 @@
 <body>
     <h1>Registration</h1>
     <form action="/registration" method="post">
+        <label for="first_name">First name:</label>
+        <p><input type="text" name="first_name"></p>
+        <label for="last_name">Last name:</label>
+        <p><input type="text" name="last_name"></p>
+        <label for="email">E-mail:</label>
+        <p><input type="email" name="email"></p>
         <label for="username">Username:</label>
         <p><input type="text" name="username"></p>
         <label for="password">Password:</label>
-        <p><input type="text" name="password"></p>
+        <p><input type="password" name="password"></p>
         <label for="confirm_password">Confirm password:</label>
-        <p><input type="text" name="confirm_password"></p>
+        <p><input type="password" name="confirm_password"></p>
         <button type="submit">Register</button>
     </form>
 </body>

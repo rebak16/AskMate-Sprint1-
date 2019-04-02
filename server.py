@@ -145,7 +145,7 @@ def register():
         hash_password = password_manager.hash_password(password)
         confirm_pw = request.form['confirm_password']
         if password == confirm_pw:
-            data_manager.register(username, hash_password)
+            data_manager.register(username, hash_password, request.form['first_name'], request.form['last_name'], request.form['email'])
             return redirect(url_for("route_list"))
     return render_template("register.html")
 
@@ -160,6 +160,12 @@ def vote_up(question_id):
 def vote_down(question_id):
     data_manager.vote_down(question_id)
     return redirect(url_for('route_list', question_id=question_id))
+
+
+@app.route('/users')
+def list_of_users():
+    users = data_manager.list_of_users()
+    return render_template('users.html', users=users)
 
 
 if __name__ == '__main__':
