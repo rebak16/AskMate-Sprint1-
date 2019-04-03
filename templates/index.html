@@ -65,9 +65,11 @@
     {% endfor %}
 </table>
 <br>
+{% if session['username'] %}
 <form action="/add-new-question">
     <button class="left_buttons" type="submit" align="right">Add new question</button>
 </form>
+{% endif %}
 <br>
 <form method="post">
     <div class="search-box">

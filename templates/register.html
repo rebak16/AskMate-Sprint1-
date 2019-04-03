@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>Registration</h1>
+<div class="card" style="display: inline-block">
 <form class="registrat" action="/registration" method="post">
     <label for="first_name">First name:</label>
     <p><input class="reg" type="text" name="first_name"></p>
@@ -17,6 +18,10 @@
     <p><input class="reg" type="email" name="email"></p>
     <label for="username">Username:</label>
     <p><input class="reg" type="text" name="username"></p>
+</form>
+</div>
+<div class="card2" style="display: inline-block">
+<form class="registrat" action="/registration" method="post">
     <label for="password">Password:</label>
     <p><input class="reg" type="password" name="password"></p>
     <label for="confirm_password">Confirm password:</label>
@@ -27,7 +32,8 @@
     {% endif %}
 </form>
 <form action="/list" method="get">
-    <button class="homepage" type="submit">Go back to Homepage</button>
-</form>
+        <button class="reg" type="submit">Go back to Homepage</button>
+    </form>
+</div>
 </body>
 </html>

@@ -19,27 +19,27 @@
     </tr>
     {% for data in quest_datas %}
         <tr>
-            <td align='center'>{{ data.submission_time }}</td>
-            <td align='center'>{{ data.view_number }}</td>
-            <td align='center'>{{ data.vote_number }}</td>
-            <td align='center'>{{ data.title }}</td>
-            <td align='center'>{{ data.message }}</td>
-            <td align='center'>{{ data.image }}</td>
-            <td align='center'>{{ data.user_name }}</td>
-            {% endfor %}
-            {% if session['username'] %}
-            <td>
-                <form action="/question/{{ question_id }}/edit">
-                    <input type="submit" value="Edit question">
-            </td>
-            </form>
-            <td>
-                <form action="/question/{{ question_id }}/new-q_comment">
-                    <input type="submit" value="comment">
-            </td>
-            </form>
-            {% endif %}
-        </tr>
+        <td align='center'>{{ data.submission_time }}</td>
+        <td align='center'>{{ data.view_number }}</td>
+        <td align='center'>{{ data.vote_number }}</td>
+        <td align='center'>{{ data.title }}</td>
+        <td align='center'>{{ data.message }}</td>
+        <td align='center'>{{ data.image }}</td>
+        <td align='center'>{{ data.user_name }}</td>
+    {% endfor %}
+    {% if session['username'] %}
+        <td>
+            <form action="/question/{{ question_id }}/edit">
+                <input type="submit" value="Edit question">
+        </td>
+        </form>
+        <td>
+            <form action="/question/{{ question_id }}/new-q_comment">
+                <input type="submit" value="comment">
+        </td>
+        </form>
+    {% endif %}
+    </tr>
 </table>
 <br>
 
@@ -87,16 +87,23 @@
                 <td align='center'>{{ data.user_name }}</td>
                 <td>
                     {% if session['username'] %}
-                    <form action="/answer/{{ data.id }}/edit">
-                        <input type="submit" value="Edit answer">
-                    </form>
-                </td>
-                <td>
-                    <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
-                        <input type="submit" value="comment">
-                    </form>
+                        <form action="/answer/{{ data.id }}/edit">
+                            <input type="submit" value="Edit answer">
+                        </form>
+                        </td>
+                        <td>
+                        <form method="get"><a href="/answer/{{ data.question_id }}/{{ data.id }}/delete"></a>
+                            <button type="submit" align="right"
+                                    formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete
+                            </button>
+                        </form>
+                        </td>
+                        <td>
+                        <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
+                            <input type="submit" value="comment">
+                        </form>
                     {% endif %}
-                </td>
+                    </td>
             </tr>
 
 
@@ -139,9 +146,9 @@
 {% endif %}
 <br>
 {% if session['username'] %}
-<form action="/question/{{ question_id }}/new-answer">
-    <button class="left_buttons" type="submit" align="right">Add new answer</button>
-</form>
+    <form action="/question/{{ question_id }}/new-answer">
+        <button class="left_buttons" type="submit" align="right">Add new answer</button>
+    </form>
 {% endif %}
 <form action="/list" method="get">
     <br>
