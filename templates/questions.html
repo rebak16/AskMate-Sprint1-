@@ -86,6 +86,7 @@
                 <td align='center'>{{ data.image }}</td>
                 <td align='center'>{{ data.user_name }}</td>
                 <td>
+                    {% if session['username'] %}
                     <form action="/answer/{{ data.id }}/edit">
                         <input type="submit" value="Edit answer">
                     </form>
@@ -94,6 +95,7 @@
                     <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
                         <input type="submit" value="comment">
                     </form>
+                    {% endif %}
                 </td>
             </tr>
 

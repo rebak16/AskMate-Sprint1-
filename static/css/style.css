@@ -30,7 +30,7 @@ a {
 
 h1 {
     word-spacing: 90px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.4em;
     background-color: lightgrey;
     font-size: 25px;
     border-radius: 28px;
@@ -51,7 +51,7 @@ input{
     border-radius: 28px;
 }
 button {
-    font-size: large;
+    font-size: medium;
     padding: 10px;
     border-radius: 28px;
 
@@ -151,7 +151,7 @@ button.vote {
 }
 
 .login {
-    font-size: 30px;
+    font-size: 25px;
     margin-left: 50px;
     font-weight: bold;
 }
