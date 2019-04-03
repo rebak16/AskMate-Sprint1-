@@ -15,7 +15,7 @@ table{
     margin-right: 5%;
     margin-left: 5%;
     width: 90%;
-    background-color: rgb(245,245,245);
+    background-image: linear-gradient(to right, #86989B, #cccccc);
     border-radius: 5px;
 
 }
@@ -37,12 +37,14 @@ h1 {
     margin-left: 20px;
     color: white;
     text-align: center;
-    cursor: pointer;
 }
 
-h1:hover{
-    color: white;
+.registration a:hover {
+    background-color: #eeeeee;
+    border-radius: 28px;
+    padding: 5px;
 }
+
 
 h2 {letter-spacing: 0.2em;
     color: grey;
