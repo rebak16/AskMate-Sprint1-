@@ -27,6 +27,7 @@
             <td align='center'>{{ data.image }}</td>
             <td align='center'>{{ data.user_name }}</td>
             {% endfor %}
+            {% if session['username'] %}
             <td>
                 <form action="/question/{{ question_id }}/edit">
                     <input type="submit" value="Edit question">
@@ -37,6 +38,7 @@
                     <input type="submit" value="comment">
             </td>
             </form>
+            {% endif %}
         </tr>
 </table>
 <br>
@@ -134,9 +136,11 @@
     There is no saved answer.<br>
 {% endif %}
 <br>
+{% if session['username'] %}
 <form action="/question/{{ question_id }}/new-answer">
     <button class="left_buttons" type="submit" align="right">Add new answer</button>
 </form>
+{% endif %}
 <form action="/list" method="get">
     <br>
     <button class="homepage" type="submit">Go back to Homepage</button>
