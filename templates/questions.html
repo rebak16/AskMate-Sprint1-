@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>AskMate(Sprint1)</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
 <h1>Question</h1>
@@ -87,7 +86,6 @@
                 <td align='center'>{{ data.image }}</td>
                 <td align='center'>{{ data.user_name }}</td>
                 <td>
-                    {% if session['username'] %}
                     <form action="/answer/{{ data.id }}/edit">
                         <input type="submit" value="Edit answer">
                     </form>
@@ -96,7 +94,6 @@
                     <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
                         <input type="submit" value="comment">
                     </form>
-                    {% endif %}
                 </td>
             </tr>
 
@@ -112,12 +109,10 @@
                             <tr class="comment_head">
                                 <th>Submission time</th>
                                 <th>Message</th>
-                                <th>User name</th>
                             </tr>
                             <tr>
                                 <td align='left'>{{ i.submission_time }}</td>
                                 <td align='left'>{{ i.message }}</td>
-                                <td align='left'>{{ i.user_name }}</td>
                                 <td>
                                     <form action="/comment/{{ i.id }}/edit">
                                         <input type="submit" value="Edit comment">

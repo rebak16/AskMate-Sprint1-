@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ 'New' if is_edit else 'Edit'}} question</title>
+    <title>{{ 'New' if is_edit else 'Edit' }} question</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<h1>{{ 'New' if is_edit else 'Edit'}} question</h1>
-            {% for data in datas %}
-            <form method="post">
-            <label for="title">{{ 'New' if is_edit else 'Edit'}} question:</label><br>
-            <textarea type="text" name="title" id="title" rows="8" cols="80">{{ data.title }}</textarea><br>
-            <label for="message">Message:</label><br>
-            <textarea type="text" name="message" id="message" rows="8" cols="80">{{ data.message }}</textarea><br><br>
-            <button class="label" type="submit" align="right">{{ 'Add' if is_edit else 'Edit'}} new question</button>
-            {% endfor %}
-            </form>
+<h1>{{ 'New' if is_edit else 'Edit' }} question</h1>
+{% for data in datas %}
+    <form method="post">
+    <label for="title">{{ 'New' if is_edit else 'Edit' }} question:</label><br>
+    <textarea type="text" name="title" id="title" rows="8" cols="80">{{ data.title }}</textarea><br>
+    <label for="message">Message:</label><br>
+    <textarea type="text" name="message" id="message" rows="8" cols="80">{{ data.message }}</textarea><br><br>
+    <button class="label" type="submit" align="right">{{ 'Add' if is_edit else 'Edit' }} new question</button>
+{% endfor %}
+</form>
 </body>
 </html>
