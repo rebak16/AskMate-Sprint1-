@@ -91,6 +91,13 @@
                         <input type="submit" value="Edit answer">
                     </form>
                 </td>
+                        <td>
+                        <form method="get"><a href="/answer/{{ data.question_id }}/{{ data.id }}/delete"></a>
+                            <button type="submit" align="right"
+                                    formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete
+                            </button>
+                        </form>
+                        </td>
                 <td>
                     <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
                         <input type="submit" value="comment">

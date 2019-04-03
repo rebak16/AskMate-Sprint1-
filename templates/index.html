@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="registration">
-    <form method="get"><h1>
+    <h1>
         {% if session['username'] %}
             <a href="/logout">Logout</a>
         {% else %}
@@ -17,7 +17,6 @@
             <a href="/login">Login</a>
         {% endif %}
         <a href="/users">ListOfUsers</a>
-    </form>
     </h1>
 </div>
 <br>
@@ -40,15 +39,17 @@
         <tr>
             <td align='center'> {{ question.submission_time }}</td>
             <td align='center'>{{ question.view_number }}</td>
-            <td align='center'>{{ question.vote_number }}
+            <td align="center">
                 {% if session['username'] %}
                     <form method="post"><a href="/question/{{ question.id }}/vote-up"></a>
-                        <button class="vote" type="submit" formaction="/question/{{ question.id }}/vote-up">Vote up
+                        <button class="voteup" type="submit" formaction="/question/{{ question.id }}/vote-up">
+                            <img src="http://pngimg.com/uploads/like/like_PNG73.png" width="30">
                         </button>
                     </form>
+                        {{ question.vote_number }}
                     <form method="post"><a href="/question/{{ question.id }}/vote-down"></a>
-                        <button class="vote" type="submit" formaction="/question/{{ question.id }}/vote-down">Vote
-                            down
+                        <button class="vote" type="submit" formaction="/question/{{ question.id }}/vote-down">
+                            <img src="http://download.seaicons.com/download/i97326/iconsmind/outline/iconsmind-outline-unlike.ico" width="30">
                         </button>
                     </form></td>
                 {% endif %}
@@ -65,9 +66,11 @@
     {% endfor %}
 </table>
 <br>
+{% if session['username'] %}
 <form action="/add-new-question">
     <button class="left_buttons" type="submit" align="right">Add new question</button>
 </form>
+{% endif %}
 <br>
 <form method="post">
     <div class="search-box">
