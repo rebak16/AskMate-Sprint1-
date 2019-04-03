@@ -6,22 +6,22 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <table class="users">
-        <tr>
-            <th>Username</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>E-mail</th>
-        </tr>
+<table class="users">
     <tr>
-    {% for user in users %}
-        <td>{{ user.username }}</td>
-        <td>{{ user.first_name }}</td>
-        <td>{{ user.last_name }}</td>
-        <td>{{ user.email }}</td>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>E-mail</th>
     </tr>
+    <tr>
+        {% for user in users %}
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            </tr>
         {% endfor %}
-    </table>
+</table>
 <form action="/list" method="get">
     <br>
     <button class="left_buttons" type="submit">Go back to Homepage</button>

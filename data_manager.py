@@ -1,6 +1,7 @@
 from datetime import datetime
 import database_common
 import password_manager
+from flask import session
 
 
 @database_common.connection_handler
@@ -37,11 +38,13 @@ def get_comment_by_question_id(cursor, question_id):
 @database_common.connection_handler
 def question_add(cursor, title, message):
     dt = datetime.now()
-    cursor.execute("insert into question (submission_time, title, message) values(%(submission_time)s,"
-                   "%(title)s, %(message)s)",
+    user_name = session['username']
+    cursor.execute("insert into question (submission_time, title, message, user_name) values(%(submission_time)s,"
+                   "%(title)s, %(message)s, %(user_name)s)",
                    {'submission_time': dt,
                     'title': title,
-                    'message': message})
+                    'message': message,
+                    'user_name': user_name})
 
 
 @database_common.connection_handler
@@ -53,12 +56,14 @@ def get_newest_id(cursor):
 @database_common.connection_handler
 def answer_add(cursor, message, question_id):
     dt = datetime.now()
+    user_name = session['username']
     cursor.execute(
-        "insert into answer (submission_time, question_id, message) values(%(submission_time)s, %(question_id)s,"
-        "%(message)s)",
+        "insert into answer (submission_time, question_id, message, user_name) values(%(submission_time)s, %(question_id)s,"
+        "%(message)s, %(user_name)s)",
         {'submission_time': dt,
          'question_id': question_id,
-         'message': message})
+         'message': message,
+         'user_name': user_name})
 
 
 @database_common.connection_handler
@@ -122,6 +127,12 @@ def delete_question(cursor, question_id):
     cursor.execute("""DELETE FROM question
                           WHERE id=%(id)s;""",
                    {'id': question_id})
+
+
+@database_common.connection_handler
+def delete_answer(cursor, id):
+    cursor.execute(" delete from answer where id=%(id)s",
+                   {'id': id})
 
 
 @database_common.connection_handler

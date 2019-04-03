@@ -7,24 +7,24 @@
     <title>AskMate(Sprint1)</title>
 </head>
 <body>
-    <div class="registration">
-        <form method="get">
-            {% if session['username'] %}
-                <a href="/logout">Logout</a>
-            {% else %}
-                <a href="/registration">Register</a>
-                <a href="/login">Log in</a>
-            {% endif %}
-            <a href="/users">List of users</a>
-        </form>
-    </div>
-    <h1>User Stories</h1>
-    {% if session['username'] %}
-        Logged in as {{ session['username'] }}.
-    {% else %}
-        You are not logged in.
-    {% endif %}
-    <h2>Questions</h2>
+<div class="registration">
+    <form method="get">
+        {% if session['username'] %}
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/registration">Register</a>
+            <a href="/login">Log in</a>
+        {% endif %}
+        <a href="/users">List of users</a>
+    </form>
+</div>
+<h1>User Stories</h1>
+{% if session['username'] %}
+    Logged in as {{ session['username'] }}.
+{% else %}
+    You are not logged in.
+{% endif %}
+<h2>Questions</h2>
 <table>
     <tr>
         <th>Submission time</th>
@@ -33,36 +33,39 @@
         <th>Title</th>
         <th></th>
     </tr>
-        {% for question in questions %}
-    <tr>
-        <td align='center'> {{ question.submission_time }}</td>
-        <td align='center'>{{ question.view_number }}</td>
-        <td align='center'>{{ question.vote_number }}
-        <form method="post"><a href="/question/{{ question.id }}/vote-up" ></a>
-        <button type="submit" formaction="/question/{{ question.id }}/vote-up">Vote up</button>
-        </form>
-        <form method="post"><a href="/question/{{ question.id }}/vote-down" ></a>
-        <button type="submit" formaction="/question/{{ question.id }}/vote-down">Vote down</button>
-        </form></td>
-        <td align='center'><a href="questions/{{question.id}}">{{ question.title }}</a></td>
-        <td> <form method="get"><a href="questions/{{question.id }}/delete"></a>
-        <button type="submit" align="right" formaction="/question/{{ question.id }}/delete">Delete</button>
-        </form>
+    {% for question in questions %}
+        <tr>
+            <td align='center'> {{ question.submission_time }}</td>
+            <td align='center'>{{ question.view_number }}</td>
+            <td align='center'>{{ question.vote_number }}
+                <form method="post"><a href="/question/{{ question.id }}/vote-up"></a>
+                    <button type="submit" formaction="/question/{{ question.id }}/vote-up">Vote up</button>
+                </form>
+                <form method="post"><a href="/question/{{ question.id }}/vote-down"></a>
+                    <button type="submit" formaction="/question/{{ question.id }}/vote-down">Vote down</button>
+                </form>
+            </td>
+            <td align='center'><a href="questions/{{ question.id }}">{{ question.title }}</a></td>
+            <td>
+                <form method="get"><a href="questions/{{ question.id }}/delete"></a>
+                    <button type="submit" align="right" formaction="/question/{{ question.id }}/delete">Delete</button>
+                </form>
 
-        </td>
-    </tr>
-        {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
 </table>
-    <br>
+<br>
 <form action="/add-new-question">
-<button class="left_buttons" type="submit" align="right">Add new question</button>
+    <button class="left_buttons" type="submit" align="right">Add new question</button>
 </form>
-    <br>
-    <form method="post">
-        <div class="search-box">
-            <input class="search-txt" type="text" id="search_phrase" name="search_phrase" placeholder="Search..." required minlength="1">
-            <button class="search-btn" formaction="/search"><i class="fas fa-search"></i></button>
-        </div>
-    </form>
+<br>
+<form method="post">
+    <div class="search-box">
+        <input class="search-txt" type="text" id="search_phrase" name="search_phrase" placeholder="Search..." required
+               minlength="1">
+        <button class="search-btn" formaction="/search"><i class="fas fa-search"></i></button>
+    </div>
+</form>
 </body>
 </html>

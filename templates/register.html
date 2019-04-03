@@ -6,25 +6,25 @@
     <title>Registration</title>
 </head>
 <body>
-    <h1>Registration</h1>
-    <form class="registrat" action="/registration" method="post">
-        <label for="first_name">First name:</label>
-        <p><input class="reg" type="text" name="first_name"></p>
-        <label for="last_name">Last name:</label>
-        <p><input class="reg" type="text" name="last_name"></p>
-        <label for="email">E-mail:</label>
-        <p><input class="reg" type="email" name="email"></p>
-        <label for="username">Username:</label>
-        <p><input class="reg" type="text" name="username"></p>
-        <label for="password">Password:</label>
-        <p><input class="reg" type="password" name="password"></p>
-        <label for="confirm_password">Confirm password:</label>
-        <p><input class="reg" type="password" name="confirm_password"></p>
-        <button class="reg" type="submit">Register</button>
-        {% if invalid_username %}
-            {{ invalid_username }}
-        {% endif %}
-    </form>
+<h1>Registration</h1>
+<form class="registrat" action="/registration" method="post">
+    <label for="first_name">First name:</label>
+    <p><input class="reg" type="text" name="first_name"></p>
+    <label for="last_name">Last name:</label>
+    <p><input class="reg" type="text" name="last_name"></p>
+    <label for="email">E-mail:</label>
+    <p><input class="reg" type="email" name="email"></p>
+    <label for="username">Username:</label>
+    <p><input class="reg" type="text" name="username"></p>
+    <label for="password">Password:</label>
+    <p><input class="reg" type="password" name="password"></p>
+    <label for="confirm_password">Confirm password:</label>
+    <p><input class="reg" type="password" name="confirm_password"></p>
+    <button class="reg" type="submit">Register</button>
+    {% if invalid_username %}
+        {{ invalid_username }}
+    {% endif %}
+</form>
 <form action="/list" method="get">
     <br>
     <button class="left_buttons" type="submit">Go back to Homepage</button>
