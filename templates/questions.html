@@ -15,6 +15,7 @@
         <th>Title</th>
         <th>Message</th>
         <th>Image</th>
+        <th>Username</th>
     </tr>
     {% for data in quest_datas %}
         <tr>
@@ -24,6 +25,9 @@
             <td align='center'>{{ data.title }}</td>
             <td align='center'>{{ data.message }}</td>
             <td align='center'>{{ data.image }}</td>
+            <td align='center'>{{ data.user_name }}</td>
+            {% endfor %}
+            {% if session['username'] %}
             <td>
                 <form action="/question/{{ question_id }}/edit">
                     <input type="submit" value="Edit question">
@@ -34,6 +38,7 @@
                     <input type="submit" value="comment">
             </td>
             </form>
+            {% endif %}
         </tr>
     {% endfor %}
 </table>
@@ -72,6 +77,7 @@
                 <th>Vote number</th>
                 <th>Message</th>
                 <th>Image</th>
+                <th>Username</th>
             </tr>
             <tr>
 
@@ -79,11 +85,20 @@
                 <td align='center'>{{ data.vote_number }}</td>
                 <td align='center'>{{ data.message }}</td>
                 <td align='center'>{{ data.image }}</td>
+                <td align='center'>{{ data.user_name }}</td>
+                <td>
+                    <form action="/answer/{{ data.id }}/edit">
+                        <input type="submit" value="Edit answer">
+                    </form>
                 <td>
                     <form action="/answer/{{ data.id }}/edit">
                         <input type="submit" value="Edit answer">
                     </form>
                 </td>
+                <td>
+                    <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
+                        <input type="submit" value="comment">
+                    </form>
                 <td>
                     <form method="get"><a href="/answer/{{ data.question_id }}/{{ data.id }}/delete"></a>
                     <button type="submit" align="right" formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete</button>
@@ -99,33 +114,29 @@
 
 
             {% if a_comm_datas %}
-                {% for i in a_comm_datas %}
-                    {% if i.answer_id == data.id %}
-                        <table class="comment">
-                            <tr class="comment_head">
+                    {% for i in a_comm_datas %}
+                         {% if i.answer_id == data.id %}
+                             <table class="comment">
+                                <tr class="comment_head">
                                 <th>comment</th>
-                            </tr>
-                            <tr class="comment_head">
+                                </tr>
+                                <tr class="comment_head">
                                 <th>Submission time</th>
                                 <th>Message</th>
-                            </tr>
-                            <tr>
-                                <td align='left'>{{ i.submission_time }}</td>
-                                <td align='left'>{{ i.message }}</td>
-                                <td>
-                                    <form action="/comment/{{ i.id }}/edit">
-                                        <input type="submit" value="Edit comment">
-                                </td>
-                                </form>
-                                <td>
-                                    <form action="/comment/{{ i.id }}/delete">
-                                        <input type="submit" value="Delete comment">
-                                </td>
-                                </form>
-                            </tr>
-                        </table>
-                    {% endif %}
-                {% endfor %}
+                                </tr>
+                                <tr>
+                                    <td align='left'>{{ i.submission_time }}</td>
+                                    <td align='left'>{{ i.message }}</td>
+                                    <td><form action="/comment/{{ i.id }}/edit">
+                                        <input type="submit" value="Edit comment"></td>
+                                    </form>
+                                    <td><form action="/comment/{{ i.id }}/delete">
+                                        <input type="submit" value="Delete comment"></td>
+                                    </form>
+                                </tr>
+                             </table>
+                         {% endif %}
+                    {% endfor %}
             {% endif %}
             </tr>
         </table>
@@ -135,12 +146,14 @@
     There is no saved answer.<br>
 {% endif %}
 <br>
+{% if session['username'] %}
 <form action="/question/{{ question_id }}/new-answer">
     <button class="left_buttons" type="submit" align="right">Add new answer</button>
 </form>
+{% endif %}
 <form action="/list" method="get">
     <br>
-    <button class="left_buttons" type="submit">Go back to Homepage</button>
+    <button class="homepage" type="submit">Go back to Homepage</button>
 </form>
 </body>
 </html>

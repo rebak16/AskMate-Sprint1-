@@ -26,11 +26,10 @@ def get_answers_by_question_id(cursor, question_id):
     return answ_datas
 
 
-
 @database_common.connection_handler
 def get_comment_by_question_id(cursor, question_id):
     cursor.execute("""select * from comment where question_id = %(question_id)s""",
-                   {'question_id' : question_id})
+                   {'question_id': question_id})
     comm_datas = cursor.fetchall()
     return comm_datas
 
@@ -38,13 +37,13 @@ def get_comment_by_question_id(cursor, question_id):
 @database_common.connection_handler
 def question_add(cursor, title, message):
     dt = datetime.now()
-    user_name = session['username']
+    username = session.get('username')
     cursor.execute("insert into question (submission_time, title, message, user_name) values(%(submission_time)s,"
                    "%(title)s, %(message)s, %(user_name)s)",
                    {'submission_time': dt,
                     'title': title,
                     'message': message,
-                    'user_name': user_name})
+                    'user_name': username})
 
 
 @database_common.connection_handler
@@ -56,35 +55,33 @@ def get_newest_id(cursor):
 @database_common.connection_handler
 def answer_add(cursor, message, question_id):
     dt = datetime.now()
-    user_name = session['username']
+    username = session.get('username')
     cursor.execute(
         "insert into answer (submission_time, question_id, message, user_name) values(%(submission_time)s, %(question_id)s,"
         "%(message)s, %(user_name)s)",
-        {'submission_time': dt,
-         'question_id': question_id,
-         'message': message,
-         'user_name': user_name})
+        dict(submission_time=dt, question_id=question_id, message=message,
+        user_name=username))
 
 
 @database_common.connection_handler
 def q_comment_add(cursor, message, question_id):
-    dt = datetime.now()
-    cursor.execute("insert into comment (submission_time, message, question_id) values(%(submission_time)s,"
-                   "%(message)s,%(question_id)s)",
-                {'submission_time': dt,
-                  'message': message,
-                 'question_id':question_id})
-
+        dt = datetime.now()
+        cursor.execute("insert into comment (submission_time, message, question_id) values(%(submission_time)s,"
+                       "%(message)s,%(question_id)s)",
+                       {'submission_time': dt,
+                        'message': message,
+                        'question_id': question_id})
 
 @database_common.connection_handler
 def a_comment_add(cursor, message, question_id, answer_id):
     dt = datetime.now()
-    cursor.execute("insert into comment (submission_time, message, question_id, answer_id) values(%(submission_time)s,"
-                   "%(message)s,%(question_id)s,%(answer_id)s)",
-                {'submission_time': dt,
-                  'message': message,
-                 'question_id':question_id,
-                 'answer_id':answer_id})
+    cursor.execute(
+        "insert into comment (submission_time, message, question_id, answer_id) values(%(submission_time)s,"
+        "%(message)s,%(question_id)s,%(answer_id)s)",
+        {'submission_time': dt,
+         'message': message,
+         'question_id': question_id,
+         'answer_id': answer_id})
 
 
 @database_common.connection_handler

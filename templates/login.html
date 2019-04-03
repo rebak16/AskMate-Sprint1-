@@ -14,10 +14,13 @@
         <label for="password">Password:</label>
         <p><input class="reg" type="password" name="password" id="login"></p>
         <button class="reg" type="submit">Login</button>
-        {% if invalid_username_or_password %}
-            {{ invalid_username_or_password }}
-        {% endif %}
     </form>
+    <form action="/list" method="get">
+        <button class="reg" type="submit">Go back to Homepage</button>
+    </form>
+    {% if invalid_username_or_password %}
+        {{ invalid_username_or_password }}
+    {% endif %}
 </div>
 <form action="/list" method="get">
     <br>
