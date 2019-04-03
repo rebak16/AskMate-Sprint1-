@@ -29,23 +29,28 @@ def get_question_and_answer_and_comments_by_id(question_id=None):
 
 @app.route("/add-new-question", methods=['GET', 'POST'])
 def route_question_add():
-    if request.method == 'POST':
-        data_manager.question_add(request.form['title'], request.form['message'])
-        _id = data_manager.get_newest_id()
-        question_id = max(_id)
-        return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id['id']))
-    return render_template('/add_new_question.html')
+    if session.get('username') is not None:
+        if request.method == 'POST':
+            data_manager.question_add(request.form['title'], request.form['message'])
+            _id = data_manager.get_newest_id()
+            question_id = max(_id)
+            return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id['id']))
+        return render_template('/add_new_question.html')
+    else:
+        return redirect('/')
 
 
 @app.route("/question/<int:question_id>/new-answer", methods=['GET', 'POST'])
 def route_answer_add(question_id=None):
-    if request.method == 'POST':
-        data_manager.answer_add(request.form['message'], question_id)
-        username = session.get('username')
-        return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id, username=username))
+    if session.get('username'):
+        if request.method == 'POST':
+            data_manager.answer_add(request.form['message'], question_id)
+            username = session.get('username')
+            return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id, username=username))
 
-    return render_template('/add_new_answer.html', question_id=question_id)
-
+        return render_template('/add_new_answer.html', question_id=question_id)
+    else:
+        return redirect('/')
 
 @app.route("/question/<int:question_id>/edit", methods=['GET', 'POST'])
 def route_edit_question(question_id=None):
