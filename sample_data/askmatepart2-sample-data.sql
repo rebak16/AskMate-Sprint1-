@@ -25,7 +25,8 @@ CREATE TABLE question (
     vote_number integer,
     title text,
     message text,
-    image text
+    image text,
+    user_name text
 );
 
 DROP TABLE IF EXISTS public.answer;
@@ -36,7 +37,8 @@ CREATE TABLE answer (
     vote_number integer,
     question_id integer,
     message text,
-    image text
+    image text,
+    user_name text
 );
 
 DROP TABLE IF EXISTS public.comment;

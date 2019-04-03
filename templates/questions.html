@@ -15,6 +15,7 @@
         <th>Title</th>
         <th>Message</th>
         <th>Image</th>
+        <th>Username</th>
     </tr>
     {% for data in quest_datas %}
         <tr>
@@ -24,6 +25,8 @@
             <td align='center'>{{ data.title }}</td>
             <td align='center'>{{ data.message }}</td>
             <td align='center'>{{ data.image }}</td>
+            <td align='center'>{{ data.user_name }}</td>
+            {% endfor %}
             <td>
                 <form action="/question/{{ question_id }}/edit">
                     <input type="submit" value="Edit question">
@@ -35,7 +38,6 @@
             </td>
             </form>
         </tr>
-    {% endfor %}
 </table>
 <br>
 
@@ -72,6 +74,7 @@
                 <th>Vote number</th>
                 <th>Message</th>
                 <th>Image</th>
+                <th>Username</th>
             </tr>
             <tr>
 
@@ -79,6 +82,7 @@
                 <td align='center'>{{ data.vote_number }}</td>
                 <td align='center'>{{ data.message }}</td>
                 <td align='center'>{{ data.image }}</td>
+                <td align='center'>{{ data.user_name }}</td>
                 <td>
                     <form action="/answer/{{ data.id }}/edit">
                         <input type="submit" value="Edit answer">

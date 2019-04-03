@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, escape
+from flask import Flask, render_template, request, redirect, url_for, session
 import data_manager
 import password_manager
 
@@ -41,7 +41,8 @@ def route_question_add():
 def route_answer_add(question_id=None):
     if request.method == 'POST':
         data_manager.answer_add(request.form['message'], question_id)
-        return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id))
+        username = session.get('username')
+        return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id, username=username))
 
     return render_template('/add_new_answer.html', question_id=question_id)
 
@@ -132,7 +133,6 @@ def login():
 
 @app.route('/logout')
 def logout():
-    # remove the username from the session if it's there
     session.pop('username', None)
     return redirect('/')
 
@@ -142,7 +142,6 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        hash_password = password_manager.hash_password(password)
         confirm_pw = request.form['confirm_password']
         if password == confirm_pw:
             try:
