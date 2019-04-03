@@ -45,8 +45,7 @@ def route_answer_add(question_id=None):
     if session.get('username'):
         if request.method == 'POST':
             data_manager.answer_add(request.form['message'], question_id)
-            username = session.get('username')
-            return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id, username=username))
+            return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id))
 
         return render_template('/add_new_answer.html', question_id=question_id)
     else:

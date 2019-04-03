@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <title>AskMate(Sprint1)</title>
 </head>
 <body>
     <div class="registration">
-        <form method="get">
+        <form method="get"><h1>
             {% if session['username'] %}
                 <a href="/logout">Logout</a>
             {% else %}
                 <a href="/registration">Register</a>
-                <a href="/login">Log in</a>
+                <a href="/login">Login</a>
             {% endif %}
-            <a href="/users">List of users</a>
-        </form>
+            <a href="/users">ListOfUsers</a>
+        </form></h1>
     </div>
-    <h1>User Stories</h1>
+    <br>
+    <div class="login">
     {% if session['username'] %}
         Logged in as {{ session['username'] }}.
     {% else %}
         You are not logged in.
-    {% endif %}
+    {% endif %}</div>
     <h2>Questions</h2>
 <table>
     <tr>
@@ -40,10 +42,10 @@
         <td align='center'>{{ question.vote_number }}
             {% if session['username'] %}
         <form method="post"><a href="/question/{{ question.id }}/vote-up" ></a>
-        <button type="submit" formaction="/question/{{ question.id }}/vote-up">Vote up</button>
+        <button class="vote" type="submit" formaction="/question/{{ question.id }}/vote-up">Vote up</button>
         </form>
         <form method="post"><a href="/question/{{ question.id }}/vote-down" ></a>
-        <button type="submit" formaction="/question/{{ question.id }}/vote-down">Vote down</button>
+        <button class="vote" type="submit" formaction="/question/{{ question.id }}/vote-down">Vote down</button>
         </form></td>
         {% endif %}
         <td align='center'><a href="questions/{{question.id}}">{{ question.title }}</a></td>
