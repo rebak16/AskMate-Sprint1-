@@ -16,6 +16,7 @@ def route_list():
 def get_question_and_answer_and_comments_by_id(question_id=None):
     quest_datas = data_manager.get_question_by_id(question_id)
     answ_datas = data_manager.get_answers_by_question_id(question_id)
+    print(answ_datas)
     q_comm_datas = data_manager.get_comment_by_question_id(question_id)
     a_comm_datas = data_manager.get_comment_by_question_id(question_id)
     return render_template('questions.html',
@@ -134,12 +135,27 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        hash_pw = data_manager.login(request.form['username'])
-        if hash_pw and password_manager.verify_password(request.form['password'], hash_pw) is False:
+        user = data_manager.get_user_by_name(request.form.get('username'))
+        if user is None:
             invalid_username_or_password = 'Invalid username or password!'
             return render_template('/login.html', invalid_username_or_password=invalid_username_or_password)
-        elif hash_pw and password_manager.verify_password(request.form['password'], hash_pw):
-            session['username'] = request.form['username']
+
+        if user['password'] and password_manager.verify_password(request.form['password'], user['password']) is False:
+            invalid_username_or_password = 'Invalid username or password!'
+            return render_template('/login.html', invalid_username_or_password=invalid_username_or_password)
+
+        session['username'] = user['username']
+
+        # users = data_manager.list_of_users()
+        # if request.form.get('username') != users[0]['username']:
+        #     invalid_username_or_password = 'Invalid username!'
+        #     return render_template('/login.html', invalid_username_or_password=invalid_username_or_password)
+        # hash_pw = data_manager.login(request.form['username'])
+        # if hash_pw and password_manager.verify_password(request.form['password'], hash_pw) is False:
+        #     invalid_username_or_password = 'Invalid password!'
+        #     return render_template('/login.html', invalid_username_or_password=invalid_username_or_password)
+        # elif hash_pw and password_manager.verify_password(request.form['password'], hash_pw):
+        #     session['username'] = request.form['username']
         return redirect('/')
     return render_template('/login.html')
 
@@ -156,13 +172,16 @@ def register():
         username = request.form['username']
         password = request.form['password']
         confirm_pw = request.form['confirm_password']
-        if password == confirm_pw:
-            try:
-                data_manager.register(username, password, request.form['first_name'], request.form['last_name'], request.form['email'])
-                return redirect('/')
-            except:
-                invalid_username = "Username is already used"
-                return render_template("register.html", invalid_username=invalid_username)
+        if password != confirm_pw:
+            invalid_confirm_pw = "Invalid confirm password!"
+            return render_template("register.html", invalid_confirm_pw=invalid_confirm_pw)
+
+        try:
+            data_manager.register(username, password, request.form['first_name'], request.form['last_name'], request.form['email'])
+            return redirect('/')
+        except:
+            invalid_username = "Username is already used"
+            return render_template("register.html", invalid_username=invalid_username)
     return render_template("register.html")
 
 

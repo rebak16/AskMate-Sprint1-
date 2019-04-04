@@ -1,7 +1,7 @@
 body{
     margin: 50px;
     padding: 30px;
-    background-image: linear-gradient(to right, #86989B, #cccccc);
+    background-image: linear-gradient(to right, #86989B, #eeeeee);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -15,7 +15,7 @@ table{
     margin-right: 5%;
     margin-left: 1%;
     width: 90%;
-    background-image: linear-gradient(to right, #86989B, #cccccc);
+    background-image: linear-gradient(to right, #86989B, #eeeeee);
     border-radius: 28px;
 
 }

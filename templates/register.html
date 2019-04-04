@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">x
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>Registration</title>
 </head>
 <body>
@@ -11,22 +11,23 @@
 <div class="card" style="display: inline-block">
 <form class="registrat" action="/registration" method="post">
     <label for="first_name">First name:</label>
-    <p><input class="reg" type="text" name="first_name"></p>
+    <p><input class="reg" type="text" name="first_name" required></p>
     <label for="last_name">Last name:</label>
-    <p><input class="reg" type="text" name="last_name"></p>
+    <p><input class="reg" type="text" name="last_name" required></p>
     <label for="email">E-mail:</label>
-    <p><input class="reg" type="email" name="email"></p>
+    <p><input class="reg" type="email" name="email" required></p>
     <label for="username">Username:</label>
-    <p><input class="reg" type="text" name="username"></p>
-</form>
+    <p><input class="reg" type="text" name="username" required></p>
 </div>
 <div class="card2" style="display: inline-block">
-<form class="registrat" action="/registration" method="post">
     <label for="password">Password:</label>
-    <p><input class="reg" type="password" name="password"></p>
+    <p><input class="reg" type="password" name="password" required></p>
     <label for="confirm_password">Confirm password:</label>
-    <p><input class="reg" type="password" name="confirm_password"></p>
+    <p><input class="reg" type="password" name="confirm_password" required></p>
     <button class="reg" type="submit">Register</button>
+    {% if invalid_confirm_pw %}
+        {{ invalid_confirm_pw }}
+    {% endif %}
     {% if invalid_username %}
         {{ invalid_username }}
     {% endif %}

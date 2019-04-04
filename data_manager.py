@@ -6,21 +6,21 @@ from flask import session
 
 @database_common.connection_handler
 def read_question_datas(cursor):
-    cursor.execute("""SELECT * FROM question order by submission_time desc """)
+    cursor.execute("""SELECT * FROM question ORDER BY submission_time desc """)
     names = cursor.fetchall()
     return names
 
 
 @database_common.connection_handler
 def get_question_by_id(cursor, question_id):
-    cursor.execute("""select * from question where id = %(id)s""",
+    cursor.execute("""SELECT * FROM question where id = %(id)s""",
                    {'id': question_id})
     quest_datas = cursor.fetchall()
     return quest_datas
 
 @database_common.connection_handler
 def get_answers_by_question_id(cursor, question_id):
-    cursor.execute("""select * from answer where question_id = %(question_id)s order by submission_time desc""",
+    cursor.execute("""SELECT * FROM answer where question_id = %(question_id)s ORDER BY submission_time desc""",
                    {'question_id': question_id})
     answ_datas = cursor.fetchall()
     return answ_datas
@@ -28,7 +28,7 @@ def get_answers_by_question_id(cursor, question_id):
 
 @database_common.connection_handler
 def get_comment_by_question_id(cursor, question_id):
-    cursor.execute("""select * from comment where question_id = %(question_id)s""",
+    cursor.execute("""SELECT * FROM comment where question_id = %(question_id)s""",
                    {'question_id': question_id})
     comm_datas = cursor.fetchall()
     return comm_datas
@@ -48,7 +48,7 @@ def question_add(cursor, title, message):
 
 @database_common.connection_handler
 def get_newest_id(cursor):
-    cursor.execute("select id from question order by id desc limit 1")
+    cursor.execute("select id FROM question ORDER BY id desc limit 1")
     return cursor.fetchall()
 
 
@@ -90,14 +90,14 @@ def edit_question(cursor, title, message, question_id):
 
 @database_common.connection_handler
 def get_answer_datas(cursor, answer_id):
-    cursor.execute("select * from answer where id = %(id)s",
+    cursor.execute("select * FROM answer where id = %(id)s",
                    dict(id=answer_id))
     return cursor.fetchall()
 
 
 @database_common.connection_handler
 def get_comment_datas(cursor, comment_id):
-    cursor.execute("select * from comment where id = %(id)s",
+    cursor.execute("select * FROM comment where id = %(id)s",
                    dict(id=comment_id))
     return cursor.fetchall()
 
@@ -126,7 +126,7 @@ def delete_question(cursor, question_id):
 
 @database_common.connection_handler
 def delete_answer(cursor, id):
-    cursor.execute(" delete from answer where id=%(id)s",
+    cursor.execute(" delete FROM answer where id=%(id)s",
                    {'id': id})
 
 
@@ -138,7 +138,7 @@ def edit_comment(cursor, message, comment_id):
 
 @database_common.connection_handler
 def delete_comment(cursor, comment_id):
-    cursor.execute("delete from comment where id = %(id)s",
+    cursor.execute("delete FROM comment where id = %(id)s",
                    dict(id=comment_id))
 
 
@@ -158,7 +158,7 @@ def register(cursor, username, password, first_name, last_name, email):
 
 @database_common.connection_handler
 def login(cursor, username):
-    cursor.execute("select password from registration where username = %(username)s",
+    cursor.execute("select password FROM registration where username = %(username)s",
                    {'username': username})
     return cursor.fetchone()['password']
 
@@ -177,5 +177,12 @@ def vote_down(cursor, question_id):
 
 @database_common.connection_handler
 def list_of_users(cursor):
-    cursor.execute("select first_name, last_name, username, email from registration")
+    cursor.execute("select first_name, last_name, username, email FROM registration")
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_user_by_name(cursor, username):
+    cursor.execute("select username, password FROM registration where username = %(username)s",
+                    {'username': username})
+    return cursor.fetchone()
