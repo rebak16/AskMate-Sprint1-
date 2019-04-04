@@ -30,12 +30,12 @@
     {% if session['username'] %}
         <td>
             <form action="/question/{{ question_id }}/edit">
-                <input type="submit" value="Edit question">
+                <button type="submit">Edit</button>
         </td>
         </form>
         <td>
             <form action="/question/{{ question_id }}/new-q_comment">
-                <input type="submit" value="comment">
+                <button type="submit">Comment</button>
         </td>
         </form>
     {% endif %}
@@ -88,19 +88,19 @@
                 <td>
                     {% if session['username'] %}
                         <form action="/answer/{{ data.id }}/edit">
-                            <input type="submit" value="Edit answer">
+                            <button type="submit">Edit</button>
                         </form>
                         </td>
                         <td>
                         <form method="get"><a href="/answer/{{ data.question_id }}/{{ data.id }}/delete"></a>
-                            <button type="submit" align="right"
-                                    formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete
+                            <button  class="" type="submit" align="right"
+                                    formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete</i>
                             </button>
                         </form>
                         </td>
                         <td>
                         <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
-                            <input type="submit" value="comment">
+                            <button type="submit"><i class="fas fa-comments"></i>Comment</button>
                         </form>
                     {% endif %}
                 </td>
@@ -124,12 +124,12 @@
                                 <td align='left'>{{ i.message }}</td>
                                 <td>
                                     <form action="/comment/{{ i.id }}/edit">
-                                        <input type="submit" value="Edit comment">
+                                        <button type="submit">Edit</button>
                                 </td>
                                 </form>
                                 <td>
                                     <form action="/comment/{{ i.id }}/delete">
-                                        <input type="submit" value="Delete comment">
+                                        <button type="submit">Delete comment</button>
                                 </td>
                                 </form>
                             </tr>

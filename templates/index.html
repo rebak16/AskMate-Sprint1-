@@ -11,12 +11,12 @@
 <div class="registration">
     <h1>
         {% if session['username'] %}
-            <a href="/logout">Logout</a>
+            <a href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
         {% else %}
-            <a href="/registration">Register</a>
-            <a href="/login">Login</a>
+            <a href="/registration"><i class="far fa-address-card"></i>Register</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
         {% endif %}
-        <a href="/users">ListOfUsers</a>
+        <a href="/users"><i class="fas fa-users"></i>List Of Users</a>
     </h1>
 </div>
 <br>
@@ -57,7 +57,8 @@
             <td>
                 {% if session['username'] %}
                 <form method="get"><a href="questions/{{ question.id }}/delete"></a>
-                        <button type="submit" align="right" formaction="/question/{{ question.id }}/delete">Delete
+                        <button type="submit" align="right" formaction="/question/{{ question.id }}/delete">
+                            Delete
                         </button>
                         </form>
                     {% endif %}

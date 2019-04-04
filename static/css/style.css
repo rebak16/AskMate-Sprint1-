@@ -16,12 +16,17 @@ table{
     margin-left: 5%;
     width: 90%;
     background-image: linear-gradient(to right, #86989B, #cccccc);
-    border-radius: 5px;
+    border-radius: 28px;
 
 }
+.fa-trash-alt {
+    font-size: 30px;
+}
+
 
 tr:hover {
-    background-color: lightgrey;
+    background-color: #cccccc;
+    border-radius: 28px;
     }
 
 a {
@@ -29,7 +34,6 @@ a {
 }
 
 h1 {
-    word-spacing: 90px;
     letter-spacing: 0.4em;
     background-color: lightgrey;
     font-size: 25px;
@@ -37,12 +41,26 @@ h1 {
     margin-left: 20px;
     color: white;
     text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+
 }
 
-.registration a:hover {
-    background-color: #eeeeee;
+.registration {
+    word-spacing: 5px;
+    font-size: 50px;
+}
+
+.registration a{
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: white;
+}
+
+.registration a:hover, i:hover {
+    background-color: rgba(0,0,0,.5);
     border-radius: 28px;
     padding: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 
 
@@ -50,18 +68,32 @@ h2 {letter-spacing: 0.2em;
     color: grey;
     text-align: center;
     font-size: 40px;
-    font-family: arial;}
+}
 
 input{
     background-color: rgb(190,190,190);
     font-size: 20px;
     border-radius: 28px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 button {
     font-size: medium;
+    background: none;
+    display: block;
+    margin: 5.5px auto;
+    text-align: center;
+    border: 2px solid #ffffff;
     padding: 10px;
+    outline: none;
+    color: black;
     border-radius: 28px;
+    transition: 0.25s;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
 
+button[type = "submit"]:hover{
+    background: #ffffff;
 }
 
 .search-box{
@@ -96,7 +128,7 @@ button {
 
  justify-content: center;
  align-items: center;
-transition: 0.4s;
+ transition: 0.4s;
 }
 .search-txt {
  border: none;
@@ -174,6 +206,7 @@ button.vote {
     transform: translate(-50%,-50%);
     background-image: linear-gradient(to left, #86989B, #cccccc);
     border-radius: 28px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 
 
@@ -224,6 +257,7 @@ button.vote {
     transform: translate(-50%,-50%);
     background-image: linear-gradient(to left, #86989B, #cccccc);
     border-radius: 28px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 
 
@@ -274,6 +308,7 @@ button.vote {
     transform: translate(-50%,-50%);
     background-image: linear-gradient(to left, #86989B, #cccccc);
     border-radius: 28px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 
 
