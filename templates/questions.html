@@ -26,19 +26,23 @@
         <td align='center'>{{ data.message }}</td>
         <td align='center'>{{ data.image }}</td>
         <td align='center'>{{ data.user_name }}</td>
+        {% if session['username'] %}
+            <td>
+                <form action="/question/{{ question_id }}/edit">
+                    <button type="submit" align="right"
+                            formaction="/question/{{ question_id }}/edit">Edit question
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
+                    <button type="submit" align="right"
+                            formaction="/question/{{ question_id }}/{{ data.id }}/new-a_comment">Comment
+                    </button>
+                </form>
+            </td>
+        {% endif %}
     {% endfor %}
-    {% if session['username'] %}
-        <td>
-            <form action="/question/{{ question_id }}/edit">
-                <input type="submit" value="Edit question">
-        </td>
-        </form>
-        <td>
-            <form action="/question/{{ question_id }}/new-q_comment">
-                <input type="submit" value="comment">
-        </td>
-        </form>
-    {% endif %}
     </tr>
 </table>
 <br>
@@ -49,15 +53,30 @@
     {% for data in q_comm_datas %}
         {% if data.answer_id == None %}
             <table class="comment">
-                <th class="comment_head">comment</th>
+                <th class="comment_head">Comment</th>
                 <tr>
                     <th>Submission time</th>
                     <th>Message</th>
                 </tr>
                 <tr>
-
                     <td align='center'>{{ data.submission_time }}</td>
-                    <td class="message" align='center'>{{ data.message }}</td>
+                    <td align='center'>{{ data.message }}</td>
+                    <td>
+                        <form action="/comment/{{ data.id }}/edit">
+                            <button type="submit" align="right"
+                                    formaction="/comment/{{ data.id }}/edit">
+                                Edit comment
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/comment/{{ data.id }}/delete">
+                            <button type="submit" align="right"
+                                    formaction="/comment/{{ data.id }}/delete">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             </table>
         {% endif %}
@@ -79,7 +98,6 @@
                 <th>Username</th>
             </tr>
             <tr>
-
                 <td align='center'>{{ data.submission_time }}</td>
                 <td align='center'>{{ data.vote_number }}</td>
                 <td align='center'>{{ data.message }}</td>
@@ -88,22 +106,26 @@
                 <td>
                     {% if session['username'] %}
                         <form action="/answer/{{ data.id }}/edit">
-                            <input type="submit" value="Edit answer">
-                        </form>
-                        </td>
-                        <td>
-                        <form method="get"><a href="/answer/{{ data.question_id }}/{{ data.id }}/delete"></a>
                             <button type="submit" align="right"
-                                    formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete
+                                    formaction="/answer/{{ data.id }}/edit">Edit answer
                             </button>
                         </form>
                         </td>
                         <td>
+                            <form method="get"><a href="/answer/{{ data.question_id }}/{{ data.id }}/delete"></a>
+                                <button type="submit" align="right"
+                                        formaction="/answer/{{ data.question_id }}/{{ data.id }}/delete">Delete
+                                </button>
+                            </form>
+                        </td>
+                        <td>
                         <form action="/question/{{ question_id }}/{{ data.id }}/new-a_comment">
-                            <input type="submit" value="comment">
+                            <button type="submit" align="right"
+                                    formaction="/question/{{ question_id }}/{{ data.id }}/new-a_comment">Comment
+                            </button>
                         </form>
                     {% endif %}
-                </td>
+                    </td>
             </tr>
 
 
@@ -113,31 +135,36 @@
                     {% if i.answer_id == data.id %}
                         <table class="comment">
                             <tr class="comment_head">
-                                <th>comment</th>
+                                <th>Comment</th>
                             </tr>
                             <tr class="comment_head">
                                 <th>Submission time</th>
                                 <th>Message</th>
                             </tr>
                             <tr>
-                                <td align='left'>{{ i.submission_time }}</td>
-                                <td align='left'>{{ i.message }}</td>
+                                <td align='center'>{{ i.submission_time }}</td>
+                                <td align='center'>{{ i.message }}</td>
                                 <td>
                                     <form action="/comment/{{ i.id }}/edit">
-                                        <input type="submit" value="Edit comment">
+                                        <button type="submit" align="right"
+                                                formaction="/comment/{{ i.id }}/edit">
+                                            Edit comment
+                                        </button>
+                                    </form>
                                 </td>
-                                </form>
                                 <td>
                                     <form action="/comment/{{ i.id }}/delete">
-                                        <input type="submit" value="Delete comment">
+                                        <button type="submit" align="right"
+                                                formaction="/comment/{{ i.id }}/delete">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </td>
-                                </form>
                             </tr>
                         </table>
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            </tr>
         </table>
         <br>
     {% endfor %}

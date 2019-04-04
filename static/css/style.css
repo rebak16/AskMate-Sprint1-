@@ -6,14 +6,13 @@ body{
 }
 
 table{
-    padding: 30px;
     text-align: center;
     color: black;
     line-height: 2;
     font-size: 15px;
     letter-spacing: 0.1em;
     margin-right: 5%;
-    margin-left: 5%;
+    margin-left: 1%;
     width: 90%;
     background-image: linear-gradient(to right, #86989B, #cccccc);
     border-radius: 5px;
@@ -61,7 +60,19 @@ button {
     font-size: medium;
     padding: 10px;
     border-radius: 28px;
+    background: none;
+    display: block;
+    text-align: center;
+    border: 2px solid #ffffff;
+    outline: none;
+    color: black;
+    transition: 0.25s;
+    cursor: pointer;
 
+}
+
+button[type = "submit"]:hover{
+    background: #ffffff;
 }
 
 .search-box{
@@ -93,17 +104,17 @@ button {
  background: #2f3640;
  border-color: #2f3640;
  border-style: none;
-
  justify-content: center;
  align-items: center;
 transition: 0.4s;
 }
+
 .search-txt {
  border: none;
  background: none;
  outline: none;
  float: left;
- padding: 0;
+ padding: 2px;
  color: white;
  font-size: 16px;
  transition: 0.4s;
