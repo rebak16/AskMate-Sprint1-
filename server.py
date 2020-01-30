@@ -95,13 +95,13 @@ def route_delete_comment(comment_id=None):
     return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id))
 
 
-@app.route("/question/<int:question_id>/new-q_comment", methods=['GET', 'POST'])
-def q_comment_add(question_id):
-    if request.method == 'POST':
-        data_manager.q_comment_add(request.form.get('message'), question_id)
-        return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id))
-
-    return render_template('/add_new_q_comment.html', question_id=question_id)
+# @app.route("/question/<int:question_id>/new-q_comment", methods=['GET', 'POST'])
+# def q_comment_add(question_id):
+#     if request.method == 'POST':
+#         data_manager.q_comment_add(request.form.get('message'), question_id)
+#         return redirect(url_for('get_question_and_answer_and_comments_by_id', question_id=question_id))
+#
+#     return render_template('/add_new_q_comment.html', question_id=question_id)
 
 
 @app.route("/question/<int:question_id>/<int:answer_id>/new-a_comment", methods=['GET', 'POST'])

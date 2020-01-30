@@ -10,8 +10,8 @@
 <table>
     <tr>
         <th>Submission time</th>
-        <th>View number</th>
-        <th>Vote number</th>
+{#        <th>View number</th>
+        <th>Vote number</th>#}
         <th>Title</th>
         <th>Message</th>
         <th>Image</th>
@@ -19,17 +19,17 @@
     {% for data in quest_datas %}
         <tr>
             <td align='center'>{{ data.submission_time }}</td>
-            <td align='center'>{{ data.view_number }}</td>
-            <td align='center'>{{ data.vote_number }}</td>
+{#            <td align='center'>{{ data.view_number }}</td>
+            <td align='center'>{{ data.vote_number }}</td>#}
             <td align='center'>{{ data.title }}</td>
             <td align='center'>{{ data.message }}</td>
             <td align='center'>{{ data.image }}</td>
             <td><form action="/question/{{ question_id }}/edit">
                     <input type="submit" value="Edit question"></td>
                 </form>
-            <td><form action="/question/{{ question_id }}/new-q_comment">
+        {#    <td><form action="/question/{{ question_id }}/new-q_comment">
                     <input type="submit" value="comment"></td>
-                </form>
+                </form>#}
         </tr>
     {% endfor %}
 </table>
