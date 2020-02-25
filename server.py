@@ -145,7 +145,6 @@ def login():
             return render_template('/login.html', invalid_username_or_password=invalid_username_or_password)
 
         session['username'] = user['username']
-
         # users = data_manager.list_of_users()
         # if request.form.get('username') != users[0]['username']:
         #     invalid_username_or_password = 'Invalid username!'
